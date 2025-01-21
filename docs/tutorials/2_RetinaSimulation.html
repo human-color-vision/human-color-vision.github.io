@@ -1,0 +1,443 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Retina Simulation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=97580af3" />
+
+  
+    <link rel="shortcut icon" href="../../_static/favicon.png"/>
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Cortex Simulation" href="3_CortexSimulation.html" />
+    <link rel="prev" title="Getting Started" href="1_GettingStarted.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            Human Color Vision
+              <img src="../../_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Tutorials</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="0_About.html">About this tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1_GettingStarted.html">Getting Started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="1_GettingStarted.html#download-the-codebase">1. Download the codebase</a></li>
+<li class="toctree-l2"><a class="reference internal" href="1_GettingStarted.html#install-the-required-packages">2. Install the required packages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="1_GettingStarted.html#using-local-pip">Using local pip</a></li>
+<li class="toctree-l3"><a class="reference internal" href="1_GettingStarted.html#using-virtualenv">Using virtualenv</a></li>
+<li class="toctree-l3"><a class="reference internal" href="1_GettingStarted.html#using-conda">Using Conda</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="1_GettingStarted.html#check-installation">3. Check installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="1_GettingStarted.html#optional-download-the-ntire-dataset">4. (Optional) Download the NTIRE dataset</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Retina Simulation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#introduction">0. Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#retina-model-overview">1. Retina model overview</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#directory-structure">Directory Structure</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#simulating-optic-nerve-signals-with-a-default-trichromatic-retina">2. Simulating optic nerve signals with a default trichromatic retina</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#simulating-different-retina-models">3. Simulating different retina models</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#change-the-parameters-in-the-yaml-file">3.1. Change the parameters in the yaml file</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#directly-modify-the-yaml-object">3.2. Directly modify the yaml object</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#directly-modify-the-instance-of-the-retina-model">3.3. Directly modify the instance of the retina model</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#conclusion">4. Conclusion</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="3_CortexSimulation.html">Cortex Simulation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="3_CortexSimulation.html#introduction">0. Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="3_CortexSimulation.html#cortex-model-overview">1. Cortex model overview</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="3_CortexSimulation.html#directory-structure">Directory Structure</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="3_CortexSimulation.html#training-the-cortex-model">2. Training the cortex model</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="3_CortexSimulation.html#default-parameters-for-training-the-default-cortex-model">2.1. Default parameters for training the default cortex model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="3_CortexSimulation.html#training-a-sandbox-model">2.2. Training a sandbox model</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="3_CortexSimulation.html#visualizing-the-learned-internal-percepts">3. Visualizing the learned internal percepts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="3_CortexSimulation.html#conclusion">4. Conclusion</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="4_CustomSimulation.html">Custom Simulation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="41_AnamalousTrichromat.html">1. Simulation of anomalous trichromat</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="41_AnamalousTrichromat.html#what-is-anomalous-trichromat">What is Anomalous Trichromat?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="41_AnamalousTrichromat.html#identify-the-module-to-customize">1.1. Identify the Module to Customize</a></li>
+<li class="toctree-l3"><a class="reference internal" href="41_AnamalousTrichromat.html#define-your-configuration">1.2. Define Your Configuration</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="41_AnamalousTrichromat.html#default-yaml-configuration">Default YAML Configuration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="41_AnamalousTrichromat.html#modified-yaml-configuration">Modified YAML Configuration</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="41_AnamalousTrichromat.html#run-and-analyze">1.3. Run and analyze</a></li>
+<li class="toctree-l3"><a class="reference internal" href="41_AnamalousTrichromat.html#further-analysis-optional">1.4. Further analysis (Optional)</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="42_ExtremeConePosition.html">2. Simulation of extreme cone positions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="42_ExtremeConePosition.html#identify-the-module-to-customize">2.1. Identify the module to customize</a></li>
+<li class="toctree-l3"><a class="reference internal" href="42_ExtremeConePosition.html#define-your-configuration">2.2. Define your configuration</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="42_ExtremeConePosition.html#default-yaml-configuration">Default YAML Configuration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="42_ExtremeConePosition.html#modified-yaml-configuration">Modified YAML Configuration</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="42_ExtremeConePosition.html#run-and-analyze">2.3. Run and analyze</a></li>
+<li class="toctree-l3"><a class="reference internal" href="42_ExtremeConePosition.html#further-analysis-optional">2.4. Further analysis (Optional)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="42_ExtremeConePosition.html#conclusion">2.5. Conclusion</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="43_ConeCellDeath.html">3. Simulation of cone cell death</a></li>
+<li class="toctree-l2"><a class="reference internal" href="44_ImperfectEyeMotionInference.html">4. Simulation of imperfect eye motion inference and its effect on color perception</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Supplementary</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../paper/index.html">Supplementary Video</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Human Color Vision</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Retina Simulation</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <ul class="simple">
+<li><p>You do not need to write a code for this tutorial – it is already written in the Jupyter notebook file.</p></li>
+<li><p>On this page, we will go through the core concepts of the retina simulation model, one by one.</p></li>
+<li><p>so it would be most useful to read this page while you have the Jupyter notebook file open side-by-side.</p></li>
+</ul>
+<section class="tex2jax_ignore mathjax_ignore" id="retina-simulation">
+<span id="retinasimulation"></span><h1>Retina Simulation<a class="headerlink" href="#retina-simulation" title="Link to this heading"></a></h1>
+<section id="introduction">
+<h2>0. Introduction<a class="headerlink" href="#introduction" title="Link to this heading"></a></h2>
+<div style="display: flex; flex-wrap: wrap; justify-content: space-between;">
+    <div style="flex: 1 1 33%; margin: 0px;">
+        <p align="center" style="margin-bottom: 0px;">Photoreceptor Activation</p>
+        <img src="../../_static/pa.gif" alt="Photoreceptor Activation" style="width: 100%;">
+    </div>
+    <div style="flex: 1 1 33%; margin: 0px;">
+        <p align="center" style="margin-bottom: 0px;">Bipolar Signals</p>
+        <img src="../../_static/bipolar.gif" alt="Bipolar Signals" style="width: 100%;">
+    </div>
+    <div style="flex: 1 1 33%; margin: 0px;">
+        <p align="center" style="margin-bottom: 0px;">Optic Nerve Signals</p>
+        <img src="../../_static/ons.gif" alt="Optic Nerve Signals" style="width: 100%;">
+    </div>
+</div>
+<h3 align="center">Example Rendering of Retinal Responses</h3>
+<p>This section of the tutorial provides step-by-step guidance on running our retina simulation model and generating a set of retinal responses.</p>
+<p><strong>If you wish to just render the optic nerve signals from your scene stimulus image, you can simply run the following command from the root directory of the codebase:</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>Tutorials/01_RetinaSimulation/render_optic_nerve_signals.py<span class="w"> </span><span class="se">\</span>
+<span class="w">       </span>--image_file<span class="w"> </span><span class="s2">&quot;path_to_your_scene_stimulus_image.png&quot;</span>
+</pre></div>
+</div>
+<p><strong>This will render the optic nerve signals from the scene stimulus image, and save the rendered movie under the <code class="docutils literal notranslate"><span class="pre">Tutorials/01_RetinaSimulation/Results</span></code> directory.</strong></p>
+<p>If you wish to study the retina simulation model in detail, please continue reading the following sections.</p>
+<p>The corresponding Jupyter notebook files for this tutorial are available at <a class="reference external" href="https://github.com/atsu-kotani/HumanColorVision/tree/main/Tutorials/01_RetinaSimulation">Tutorials/01_RetinaSimulation</a>.</p>
+<p>By the end of this tutorial, you will be able to understand:</p>
+<ol class="arabic simple">
+<li><p>How to generate optic nerve signal simulation movies from a scene stimulus, and</p></li>
+<li><p>How changes in retinal model parameters impact retinal responses.</p></li>
+</ol>
+</section>
+<hr class="docutils" />
+<section id="retina-model-overview">
+<h2>1. Retina model overview<a class="headerlink" href="#retina-model-overview" title="Link to this heading"></a></h2>
+<p>The codebase for the retina simulation is located under <a class="reference external" href="https://github.com/atsu-kotani/HumanColorVision/tree/main/Simulated/Retina">Simulated/Retina</a>.
+It is organized to facilitate ease of use, modification, and understanding. Below is the general structure of the directory:</p>
+<section id="directory-structure">
+<h3>Directory Structure<a class="headerlink" href="#directory-structure" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">Simulated/Retina</span></code></strong></p>
+<ul>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">RetinaModel.py</span></code></strong> (Main class)</p></li>
+<li><p><strong>Modules for the retina simulation</strong>:</p>
+<ul>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">EM_eye_motion</span></code></strong> folder</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">FV_spatial_sampling</span></code></strong> folder</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">SS_spectral_sampling</span></code></strong> folder</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">LI_lateral_inhibition</span></code></strong> folder</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">SC_spike_conversion</span></code></strong> folder</p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>In <a class="reference external" href="https://github.com/atsu-kotani/HumanColorVision/blob/main/Simulated/Retina/RetinaModel.py">RetinaModel.py</a>, the RetinaModel class is defined, as it follows:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">RetinaModel</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">RetinaModel</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">EyeMotion</span>          <span class="o">=</span> <span class="n">create_eye_motion_module</span><span class="p">(</span><span class="n">params</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">SpatialSampling</span>    <span class="o">=</span> <span class="n">create_spatial_sampling_module</span><span class="p">(</span><span class="n">params</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">SpectralSampling</span>   <span class="o">=</span> <span class="n">create_spectral_sampling_module</span><span class="p">(</span><span class="n">params</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">LateralInhibition</span>  <span class="o">=</span> <span class="n">create_lateral_inhibition_module</span><span class="p">(</span><span class="n">params</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">SpikeConversion</span>    <span class="o">=</span> <span class="n">create_spike_conversion_module</span><span class="p">(</span> <span class="n">params</span><span class="p">)</span>
+
+        <span class="o">...</span> <span class="n">rest</span> <span class="n">of</span> <span class="n">the</span> <span class="n">code</span> <span class="o">...</span>
+
+</pre></div>
+</div>
+<p><strong><code class="docutils literal notranslate"><span class="pre">params</span></code></strong> is a set of parameters used in this retina simulation, defined in the <a class="reference external" href="https://github.com/atsu-kotani/HumanColorVision/blob/main/Experiment/Config/Tutorials/Retina_Simulation.yaml">Experiment/Config/Tutorials/Retina_Simulation.yaml</a> file.</p>
+<p>Importantly, by changing the parameters in these parameters, you will be able to change the behavior of the retina simulation as we will show you later in this tutorial.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="simulating-optic-nerve-signals-with-a-default-trichromatic-retina">
+<h2>2. Simulating optic nerve signals with a default trichromatic retina<a class="headerlink" href="#simulating-optic-nerve-signals-with-a-default-trichromatic-retina" title="Link to this heading"></a></h2>
+<p><strong>Please refer to the <a class="reference external" href="https://github.com/atsu-kotani/HumanColorVision/blob/main/Tutorials/01_RetinaSimulation/SimulateOpticNerveSignals.ipynb">Tutorials/01_RetinaSimulation/02_Generating_ONS.ipynb</a> file for this section.</strong></p>
+<p>We will first demonstrate how to run the most basic, default trichromatic retina simulation.
+First, we can instantiate the retina model with the parameters defined in the yaml file, as follows:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Load RetinaModel from the config yaml file</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">ROOT_DIR</span><span class="si">}</span><span class="s1">/Tutorials/01_RetinaSimulation/Config/Default_Retina_Simulation.yaml&#39;</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">params</span> <span class="o">=</span> <span class="n">yaml</span><span class="o">.</span><span class="n">safe_load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">Simulated.Retina.RetinaModel</span><span class="w"> </span><span class="kn">import</span> <span class="n">RetinaModel</span>
+<span class="n">retina</span> <span class="o">=</span> <span class="n">RetinaModel</span><span class="p">(</span><span class="n">params</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">DEVICE</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Our <code class="docutils literal notranslate"><span class="pre">retina</span></code> object is now instantiated with the parameters from the yaml file, and it is ready to use!</p>
+<p>Let’s define an example input image in LMS space, and run the retina simulation!</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>
+<span class="c1"># You can change the example_image_path to the path of your own image</span>
+<span class="n">example_image_path</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">ROOT_DIR</span><span class="si">}</span><span class="s1">/Tutorials/data/sample_sRGB_image.png&#39;</span>
+<span class="n">example_sRGB_image</span> <span class="o">=</span> <span class="n">load_sRGB_image</span><span class="p">(</span><span class="n">example_image_path</span><span class="p">,</span> <span class="n">params</span><span class="p">)</span>
+
+<span class="c1"># retina.CST (color space transform) is used to convert the color space</span>
+<span class="c1"># In this case, we convert the sRGB image to linsRGB, and then to LMS</span>
+<span class="n">example_linsRGB_image</span> <span class="o">=</span> <span class="n">retina</span><span class="o">.</span><span class="n">CST</span><span class="o">.</span><span class="n">sRGB_to_linsRGB</span><span class="p">(</span><span class="n">example_sRGB_image</span><span class="p">)</span>
+<span class="n">example_LMS_image</span> <span class="o">=</span> <span class="n">retina</span><span class="o">.</span><span class="n">CST</span><span class="o">.</span><span class="n">linsRGB_to_LMS</span><span class="p">(</span><span class="n">example_linsRGB_image</span><span class="p">)</span>
+<span class="n">example_LMS_image</span> <span class="o">=</span> <span class="n">example_LMS_image</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">permute</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+
+<span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span> <span class="c1"># gradient computation is not needed for retina simulation</span>
+    <span class="n">list_of_retinal_responses</span> <span class="o">=</span> <span class="n">retina</span><span class="o">.</span><span class="n">forward</span><span class="p">(</span><span class="n">example_LMS_image</span><span class="p">,</span> <span class="n">intermediate_outputs</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">optic_nerve_signals</span> <span class="o">=</span> <span class="n">list_of_retinal_responses</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">spatially_sampled_LMS</span> <span class="o">=</span> <span class="n">list_of_retinal_responses</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+    <span class="n">photoreceptor_activation</span> <span class="o">=</span> <span class="n">list_of_retinal_responses</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+    <span class="n">bipolar_signals</span> <span class="o">=</span> <span class="n">list_of_retinal_responses</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span>
+    <span class="n">LMS_current_FoV</span> <span class="o">=</span> <span class="n">list_of_retinal_responses</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>And that’s it! You have successfully run the retina simulation!
+Below movies are rendered from these retinal responses using the <code class="docutils literal notranslate"><span class="pre">visualize_signals</span></code> function defined in the <a class="reference external" href="https://github.com/atsu-kotani/HumanColorVision/blob/main/Tutorials/01_retina_sim.py">Tutorials/01_retina_sim.py</a> file.
+FoV stands for “field of view”.</p>
+<div style="display: flex; flex-wrap: wrap; justify-content: space-between;">
+    <div style="flex: 1 1 33%; margin: 0px;">
+        <p align="center" style="margin-bottom: 0px;">Current FoV (sRGB)</p>
+        <img src="../../_static/sRGB_current_FoV.gif" alt="Current FoV (sRGB)" style="width: 100%;">
+    </div>
+    <div style="flex: 1 1 33%; margin: 0px;">
+        <p align="center" style="margin-bottom: 0px;">Current FoV (LMS)</p>
+        <img src="../../_static/LMS_current_FoV.gif" alt="Current FoV (LMS)" style="width: 100%;">
+    </div>
+    <div style="flex: 1 1 33%; margin: 0px;">
+        <p align="center" style="margin-bottom: 0px;">Spatially Sampled LMS</p>
+        <img src="../../_static/warped_LMS.gif" alt="Spatially Sampled LMS" style="width: 100%;">
+    </div>
+    <div style="flex: 1 1 33%; margin: 0px;">
+        <p align="center" style="margin-bottom: 0px;">Photoreceptor Activation</p>
+        <img src="../../_static/pa.gif" alt="Photoreceptor Activation" style="width: 100%;">
+    </div>
+    <div style="flex: 1 1 33%; margin: 0px;">
+        <p align="center" style="margin-bottom: 0px;">Bipolar Signals</p>
+        <img src="../../_static/bipolar.gif" alt="Bipolar Signals" style="width: 100%;">
+    </div>
+    <div style="flex: 1 1 33%; margin: 0px;">
+        <p align="center" style="margin-bottom: 0px;">Optic Nerve Signals</p>
+        <img src="../../_static/ons.gif" alt="Optic Nerve Signals" style="width: 100%;">
+    </div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="simulating-different-retina-models">
+<h2>3. Simulating different retina models<a class="headerlink" href="#simulating-different-retina-models" title="Link to this heading"></a></h2>
+<p><strong>Please refer to the <a class="reference external" href="https://github.com/atsu-kotani/HumanColorVision/blob/main/Tutorials/01_RetinaSimulation/03_Comparison.ipynb">Tutorials/01_RetinaSimulation/03_Comparison.ipynb</a> file for this section.</strong></p>
+<p>We have now generated the retinal responses from a default trichromatic retina model, and we will now compare the retinal responses from different retina models.</p>
+<p>There are a couple of ways to simulate different retina models.</p>
+<ol class="arabic simple">
+<li><p>Make a new yaml file with the parameters of your choice, and instantiate a new retina model with the new parameters.</p></li>
+<li><p>Directly modify the yaml file, and instantiate a new retina model with the modified parameter set.</p></li>
+<li><p>Directly modify the instance of the retina model.</p></li>
+</ol>
+<p>We will demonstrate all three methods in this section.</p>
+<section id="change-the-parameters-in-the-yaml-file">
+<h3>3.1. Change the parameters in the yaml file<a class="headerlink" href="#change-the-parameters-in-the-yaml-file" title="Link to this heading"></a></h3>
+<p>We have made a couple of example yaml files for you to try out different retina models.</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/atsu-kotani/HumanColorVision/blob/main/Tutorials/01_RetinaSimulation/Config/LM_Tritanopia.yaml">Tutorials/01_RetinaSimulation/Config/LM_Tritanopia.yaml</a></p></li>
+<li><p><a class="reference external" href="https://github.com/atsu-kotani/HumanColorVision/blob/main/Tutorials/01_RetinaSimulation/Config/LS_Deuteranopia.yaml">Tutorials/01_RetinaSimulation/Config/LS_Deuteranopia.yaml</a></p></li>
+<li><p><a class="reference external" href="https://github.com/atsu-kotani/HumanColorVision/blob/main/Tutorials/01_RetinaSimulation/Config/MS_Protanopia.yaml">Tutorials/01_RetinaSimulation/Config/MS_Protanopia.yaml</a></p></li>
+</ul>
+<p>As seen in these yaml files, the only difference between these yaml files is <code class="docutils literal notranslate"><span class="pre">'cone_types'</span></code> in the <code class="docutils literal notranslate"><span class="pre">retina_spectral_sampling</span></code> parameter (i.e. <code class="docutils literal notranslate"><span class="pre">LM</span></code> vs <code class="docutils literal notranslate"><span class="pre">LS</span></code> vs <code class="docutils literal notranslate"><span class="pre">MS</span></code>).</p>
+<p>In code, you can instantiate a new retina model with the new parameters as follows:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Default RetinaModel</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">ROOT_DIR</span><span class="si">}</span><span class="s1">/Tutorials/01_RetinaSimulation/Config/Default_Retina_Simulation.yaml&#39;</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">default_params</span> <span class="o">=</span> <span class="n">yaml</span><span class="o">.</span><span class="n">safe_load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+<span class="n">default_retina</span> <span class="o">=</span> <span class="n">RetinaModel</span><span class="p">(</span><span class="n">default_params</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">DEVICE</span><span class="p">)</span>
+
+<span class="c1"># LM_Tritanopia RetinaModel</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">ROOT_DIR</span><span class="si">}</span><span class="s1">/Tutorials/01_RetinaSimulation/Config/LM_Tritanopia.yaml&#39;</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">lm_tritanopia_params</span> <span class="o">=</span> <span class="n">yaml</span><span class="o">.</span><span class="n">safe_load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+<span class="n">lm_tritanopia_retina</span> <span class="o">=</span> <span class="n">RetinaModel</span><span class="p">(</span><span class="n">lm_tritanopia_params</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">DEVICE</span><span class="p">)</span>
+
+<span class="c1"># LS_Deuteranopia RetinaModel</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">ROOT_DIR</span><span class="si">}</span><span class="s1">/Tutorials/01_RetinaSimulation/Config/LS_Deuteranopia.yaml&#39;</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">ls_deuteranopia_params</span> <span class="o">=</span> <span class="n">yaml</span><span class="o">.</span><span class="n">safe_load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+<span class="n">ls_deuteranopia_retina</span> <span class="o">=</span> <span class="n">RetinaModel</span><span class="p">(</span><span class="n">ls_deuteranopia_params</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">DEVICE</span><span class="p">)</span>
+
+<span class="c1"># MS_Protanopia RetinaModel</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">ROOT_DIR</span><span class="si">}</span><span class="s1">/Tutorials/01_RetinaSimulation/Config/MS_Protanopia.yaml&#39;</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">ms_protanopia_params</span> <span class="o">=</span> <span class="n">yaml</span><span class="o">.</span><span class="n">safe_load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+<span class="n">ms_protanopia_retina</span> <span class="o">=</span> <span class="n">RetinaModel</span><span class="p">(</span><span class="n">ms_protanopia_params</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">DEVICE</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Just like before, we can run the retina simulation with each of these retina models, as follows:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Showing just the default retina and LM_Tritanopia retina model for brevity</span>
+
+<span class="c1"># Default RetinaModel</span>
+<span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span> <span class="c1"># gradient computation is not needed for retina simulation</span>
+    <span class="n">list_of_retinal_responses</span> <span class="o">=</span> <span class="n">default_retina</span><span class="o">.</span><span class="n">forward</span><span class="p">(</span><span class="n">example_LMS_image</span><span class="p">,</span> <span class="n">intermediate_outputs</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">default_optic_nerve_signals</span> <span class="o">=</span> <span class="n">list_of_retinal_responses</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">default_photoreceptor_activation</span> <span class="o">=</span> <span class="n">list_of_retinal_responses</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+
+<span class="c1"># LM_Tritanopia RetinaModel</span>
+<span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>
+    <span class="n">list_of_retinal_responses</span> <span class="o">=</span> <span class="n">lm_tritanopia_retina</span><span class="o">.</span><span class="n">forward</span><span class="p">(</span><span class="n">example_LMS_image</span><span class="p">,</span> <span class="n">intermediate_outputs</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">lm_tritanopia_optic_nerve_signals</span> <span class="o">=</span> <span class="n">list_of_retinal_responses</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">lm_tritanopia_photoreceptor_activation</span> <span class="o">=</span> <span class="n">list_of_retinal_responses</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>If we plot the photoreceptor activation and the optic nerve signals side-by-side, we can see the difference in the retinal responses among these different retina models. Each column represents a different retina model.</p>
+<p><img alt="Photoreceptor Activation Comparison" src="../../_images/pa_comparison.png" /></p>
+</section>
+<section id="directly-modify-the-yaml-object">
+<h3>3.2. Directly modify the yaml object<a class="headerlink" href="#directly-modify-the-yaml-object" title="Link to this heading"></a></h3>
+<p>Instead of creating a new yaml file, you can also directly modify the yaml object, and instantiate a new retina model with the modified parameter set.</p>
+<p>For example, if you want to update the <code class="docutils literal notranslate"><span class="pre">cone_types</span></code> parameter defined in the <a class="reference external" href="https://github.com/atsu-kotani/HumanColorVision/blob/main/Tutorials/01_RetinaSimulation/Config/Default_Retina_Simulation.yaml">Tutorials/01_RetinaSimulation/Config/Default_Retina_Simulation.yaml</a> file, you can do so as follows:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">ROOT_DIR</span><span class="si">}</span><span class="s1">/Tutorials/01_RetinaSimulation/Config/Default_Retina_Simulation.yaml&#39;</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">default_params</span> <span class="o">=</span> <span class="n">yaml</span><span class="o">.</span><span class="n">safe_load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+
+<span class="c1"># Copy the original params</span>
+<span class="n">new_params</span> <span class="o">=</span> <span class="n">default_params</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+<span class="c1"># Modify the parameter you want to change</span>
+<span class="n">new_params</span><span class="p">[</span><span class="s1">&#39;RetinaModel&#39;</span><span class="p">][</span><span class="s1">&#39;retina_spectral_sampling&#39;</span><span class="p">][</span><span class="s1">&#39;cone_types&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;LM&#39;</span>
+
+<span class="n">lm_tritanopia_retina</span> <span class="o">=</span> <span class="n">RetinaModel</span><span class="p">(</span><span class="n">new_params</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">DEVICE</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>This would yield the same result as creating a new yaml file.</p>
+</section>
+<section id="directly-modify-the-instance-of-the-retina-model">
+<h3>3.3. Directly modify the instance of the retina model<a class="headerlink" href="#directly-modify-the-instance-of-the-retina-model" title="Link to this heading"></a></h3>
+<p>You can also directly modify the instance of the retina model, as follows:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Get the current cone mosaic of the shape (1, 4, 256, 256)</span>
+<span class="c1"># Why 4? Each channel represents a different cone type (L, M, S, Q)</span>
+<span class="c1"># For a trichromatic retina, the last channel (Q) is always 0.</span>
+<span class="n">current_cone_mosaic</span> <span class="o">=</span> <span class="n">default_retina</span><span class="o">.</span><span class="n">SpectralSampling</span><span class="o">.</span><span class="n">get_cone_mosaic</span><span class="p">()</span>
+
+<span class="c1"># Modify the cone mosaic</span>
+<span class="n">new_cone_mosaic</span> <span class="o">=</span> <span class="n">current_cone_mosaic</span><span class="o">.</span><span class="n">clone</span><span class="p">()</span>
+
+<span class="n">where_S_cones_are</span> <span class="o">=</span> <span class="p">(</span><span class="n">current_cone_mosaic</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span>
+<span class="c1"># Deleting all S cone labels from the cone mosaic</span>
+<span class="n">new_cone_mosaic</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">where_S_cones_are</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="c1"># Adding L cone labels back to the deleted locations</span>
+<span class="n">new_cone_mosaic</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">where_S_cones_are</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+
+<span class="c1"># Overwrite the current cone mosaic with the new cone mosaic</span>
+<span class="n">default_retina</span><span class="o">.</span><span class="n">SpectralSampling</span><span class="o">.</span><span class="n">cone_mosaic</span> <span class="o">=</span> <span class="n">new_cone_mosaic</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Now the <code class="docutils literal notranslate"><span class="pre">default_retina</span></code> object works as a tritanopia retina model (no S cones).</p>
+<p><img alt="Directly Overwrite Cone Mosaic" src="../../_images/direct_overwrite_cone_mosaic.png" /></p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="conclusion">
+<h2>4. Conclusion<a class="headerlink" href="#conclusion" title="Link to this heading"></a></h2>
+<p>In this tutorial, we have demonstrated how to run the retina simulation model and generate a set of retinal responses.</p>
+<p>But this is just the beginning! We have just shown you the off-the-shelf retina model, and <a class="reference internal" href="4_CustomSimulation.html"><span class="std std-doc">in the later tutorial</span></a>, we will show you how to customize the retina model to suit your needs.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="1_GettingStarted.html" class="btn btn-neutral float-left" title="Getting Started" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="3_CortexSimulation.html" class="btn btn-neutral float-right" title="Cortex Simulation" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Atsunobu Kotani.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

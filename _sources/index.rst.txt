@@ -1,0 +1,72 @@
+.. title:: Paper Overview
+
+A Computational Framework for Modeling the Emergence of Color Vision in the Human Brain
+=======================================================================================
+
+.. raw:: html
+
+    <div align="center" style="margin-bottom: 20px;">
+        <h2 style="text-align: center;">
+            <a href='https://www.atsunobukotani.com/about'>Atsunobu Kotani</a> & <a href='https://www2.eecs.berkeley.edu/Faculty/Homepages/yirenng.html'>Ren Ng</a>
+        </h2>
+        <h4 style="text-align: center;">Department of Electrical Engineering and Computer Sciences,<br>University of California, Berkeley</h4>
+
+        <div align="center" style="margin-bottom: 40px;">
+            <a href="https://github.com/atsu-kotani/HumanColorVision" target="_blank" style="margin-right: 10px;">
+                <img src="https://img.shields.io/badge/GitHub-Repository-blue?style=flat&logo=github" alt="GitHub" height="30">
+            </a>
+            <a href="https://arxiv.org/abs/2408.16916" target="_blank" style="margin-right: 10px;">
+                <img src="https://img.shields.io/badge/Arxiv-Paper-red?style=flat&logo=arxiv" alt="Arxiv" height="30">
+            </a>
+            <a href="https://openreview.net/forum?id=g3xuCtrG6H" target="_blank" style="margin-right: 10px;">
+                <img src="https://img.shields.io/badge/OpenReview-Discussion-green?style=flat" alt="OpenReview" height="30">
+            </a>
+            <a href="https://github.com/atsu-kotani/HumanColorVision/blob/main/docs/tutorials/index.rst" target="_blank" style="margin-right: 10px;">
+                <img src="https://img.shields.io/badge/Tutorial-Page-orange?style=flat" alt="Tutorial" height="30">
+            </a>
+        </div>
+
+        <img src="_static/output.gif" alt="Overview" width="100%">
+        
+    </div>
+
+.. raw:: html
+
+    <hr style="border: 1px solid #000;">
+
+Two Sentence Summary
+--------------------
+
+This work addresses the long-standing mystery of how the brain constructs color vision with correct dimensionality, purely from optic nerve signals.
+
+We simulate the human visual system to generate biologically realistic optic nerve signals and model cortical learning that exclusively relies on these signals. 
+The results demonstrate emergent color vision with accurate dimensionality, validated across diverse biological conditions and real-world experiments.
+
+
+Tutorials
+---------
+
+To reproduce the results presented in this work, please refer to the :ref:`Tutorials <tutorials>` page. Specifically,
+
+- :ref:`Retina Simulation <retinasimulation>`: how to generate optic nerve signal movies from input stimuli.
+- :ref:`Cortex Simulation <cortexsimulation>`: how to simulate cortical learning from scratch.
+
+
+.. toctree::
+   :maxdepth: 4
+   :caption: Tutorials
+   :hidden:
+
+   docs/tutorials/0_About
+   docs/tutorials/1_GettingStarted
+   docs/tutorials/2_RetinaSimulation.md
+   docs/tutorials/3_CortexSimulation.md
+   docs/tutorials/4_CustomSimulation
+
+
+.. toctree::
+   :maxdepth: 1
+   :caption: Supplementary
+   :hidden:
+   
+   docs/paper/index

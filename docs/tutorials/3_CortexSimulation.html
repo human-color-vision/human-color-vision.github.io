@@ -1,0 +1,417 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cortex Simulation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=97580af3" />
+
+  
+    <link rel="shortcut icon" href="../../_static/favicon.png"/>
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Custom Simulation" href="4_CustomSimulation.html" />
+    <link rel="prev" title="Retina Simulation" href="2_RetinaSimulation.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            Human Color Vision
+              <img src="../../_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Tutorials</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="0_About.html">About this tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1_GettingStarted.html">Getting Started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="1_GettingStarted.html#download-the-codebase">1. Download the codebase</a></li>
+<li class="toctree-l2"><a class="reference internal" href="1_GettingStarted.html#install-the-required-packages">2. Install the required packages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="1_GettingStarted.html#using-local-pip">Using local pip</a></li>
+<li class="toctree-l3"><a class="reference internal" href="1_GettingStarted.html#using-virtualenv">Using virtualenv</a></li>
+<li class="toctree-l3"><a class="reference internal" href="1_GettingStarted.html#using-conda">Using Conda</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="1_GettingStarted.html#check-installation">3. Check installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="1_GettingStarted.html#optional-download-the-ntire-dataset">4. (Optional) Download the NTIRE dataset</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="2_RetinaSimulation.html">Retina Simulation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="2_RetinaSimulation.html#introduction">0. Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="2_RetinaSimulation.html#retina-model-overview">1. Retina model overview</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="2_RetinaSimulation.html#directory-structure">Directory Structure</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="2_RetinaSimulation.html#simulating-optic-nerve-signals-with-a-default-trichromatic-retina">2. Simulating optic nerve signals with a default trichromatic retina</a></li>
+<li class="toctree-l2"><a class="reference internal" href="2_RetinaSimulation.html#simulating-different-retina-models">3. Simulating different retina models</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="2_RetinaSimulation.html#change-the-parameters-in-the-yaml-file">3.1. Change the parameters in the yaml file</a></li>
+<li class="toctree-l3"><a class="reference internal" href="2_RetinaSimulation.html#directly-modify-the-yaml-object">3.2. Directly modify the yaml object</a></li>
+<li class="toctree-l3"><a class="reference internal" href="2_RetinaSimulation.html#directly-modify-the-instance-of-the-retina-model">3.3. Directly modify the instance of the retina model</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="2_RetinaSimulation.html#conclusion">4. Conclusion</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Cortex Simulation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#introduction">0. Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#cortex-model-overview">1. Cortex model overview</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#directory-structure">Directory Structure</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#training-the-cortex-model">2. Training the cortex model</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#default-parameters-for-training-the-default-cortex-model">2.1. Default parameters for training the default cortex model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#training-a-sandbox-model">2.2. Training a sandbox model</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#visualizing-the-learned-internal-percepts">3. Visualizing the learned internal percepts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#conclusion">4. Conclusion</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="4_CustomSimulation.html">Custom Simulation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="41_AnamalousTrichromat.html">1. Simulation of anomalous trichromat</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="41_AnamalousTrichromat.html#what-is-anomalous-trichromat">What is Anomalous Trichromat?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="41_AnamalousTrichromat.html#identify-the-module-to-customize">1.1. Identify the Module to Customize</a></li>
+<li class="toctree-l3"><a class="reference internal" href="41_AnamalousTrichromat.html#define-your-configuration">1.2. Define Your Configuration</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="41_AnamalousTrichromat.html#default-yaml-configuration">Default YAML Configuration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="41_AnamalousTrichromat.html#modified-yaml-configuration">Modified YAML Configuration</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="41_AnamalousTrichromat.html#run-and-analyze">1.3. Run and analyze</a></li>
+<li class="toctree-l3"><a class="reference internal" href="41_AnamalousTrichromat.html#further-analysis-optional">1.4. Further analysis (Optional)</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="42_ExtremeConePosition.html">2. Simulation of extreme cone positions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="42_ExtremeConePosition.html#identify-the-module-to-customize">2.1. Identify the module to customize</a></li>
+<li class="toctree-l3"><a class="reference internal" href="42_ExtremeConePosition.html#define-your-configuration">2.2. Define your configuration</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="42_ExtremeConePosition.html#default-yaml-configuration">Default YAML Configuration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="42_ExtremeConePosition.html#modified-yaml-configuration">Modified YAML Configuration</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="42_ExtremeConePosition.html#run-and-analyze">2.3. Run and analyze</a></li>
+<li class="toctree-l3"><a class="reference internal" href="42_ExtremeConePosition.html#further-analysis-optional">2.4. Further analysis (Optional)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="42_ExtremeConePosition.html#conclusion">2.5. Conclusion</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="43_ConeCellDeath.html">3. Simulation of cone cell death</a></li>
+<li class="toctree-l2"><a class="reference internal" href="44_ImperfectEyeMotionInference.html">4. Simulation of imperfect eye motion inference and its effect on color perception</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Supplementary</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../paper/index.html">Supplementary Video</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Human Color Vision</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Cortex Simulation</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section class="tex2jax_ignore mathjax_ignore" id="cortex-simulation">
+<span id="cortexsimulation"></span><h1>Cortex Simulation<a class="headerlink" href="#cortex-simulation" title="Link to this heading"></a></h1>
+<section id="introduction">
+<h2>0. Introduction<a class="headerlink" href="#introduction" title="Link to this heading"></a></h2>
+<p>This section of the tutorial provides step-by-step guidance on running our cortex simulation model and generating a set of retinal responses.
+The corresponding Jupyter notebook files for this tutorial are available at <a class="reference external" href="https://github.com/atsu-kotani/HumanColorVision/tree/main/Tutorials/02_CortexSimulation">Tutorials/02_CortexSimulation</a>.</p>
+<p>By the end of this tutorial, you will be able to:</p>
+<ol class="arabic simple">
+<li><p>Train the cortex model from scratch, and</p></li>
+<li><p>Visualize the learned internal percepts.</p></li>
+</ol>
+</section>
+<hr class="docutils" />
+<section id="cortex-model-overview">
+<h2>1. Cortex model overview<a class="headerlink" href="#cortex-model-overview" title="Link to this heading"></a></h2>
+<p>The codebase for the cortex simulation is located under <a class="reference external" href="https://github.com/atsu-kotani/HumanColorVision/tree/main/Simulated/Cortex">Simulated/Cortex</a>.
+It is organized to facilitate ease of use, modification, and understanding. Below is the general structure of the directory:</p>
+<section id="directory-structure">
+<h3>Directory Structure<a class="headerlink" href="#directory-structure" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">Simulated/Cortex</span></code></strong></p>
+<ul>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">CortexModel.py</span></code></strong> (Main class)</p></li>
+<li><p><strong>Modules for the cortex simulation</strong>:</p>
+<ul>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">C_cone_spectral_type</span></code></strong> folder</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">D_demosaicing</span></code></strong> folder</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">M_global_movement</span></code></strong> folder</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">P_cell_position</span></code></strong> folder</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">W_lateral_inhibition_weights</span></code></strong> folder</p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>In <a class="reference external" href="https://github.com/atsu-kotani/HumanColorVision/blob/main/Simulated/Cortex/CortexModel.py">CortexModel.py</a>, the CortexModel class is defined, as it follows:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">CortexModel</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">CortexModel</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">C_cone_spectral_type</span>         <span class="o">=</span> <span class="n">create_C_cone_spectral_type</span><span class="p">(</span><span class="n">params</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">D_demosaicing</span>                <span class="o">=</span> <span class="n">create_D_demosaicing</span><span class="p">(</span><span class="n">params</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">M_global_movement</span>            <span class="o">=</span> <span class="n">create_M_global_movement</span><span class="p">(</span><span class="n">params</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">P_cell_position</span>              <span class="o">=</span> <span class="n">create_P_cell_position</span><span class="p">(</span><span class="n">params</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">W_lateral_inhibition_weights</span> <span class="o">=</span> <span class="n">create_W_lateral_inhibition_weights</span><span class="p">(</span><span class="n">params</span><span class="p">)</span>
+
+        <span class="o">...</span> <span class="n">rest</span> <span class="n">of</span> <span class="n">the</span> <span class="n">code</span> <span class="o">...</span>
+
+    <span class="c1"># Decode the optic nerve signal to the internal percept</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">decode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ons</span><span class="p">):</span>
+        <span class="n">pa</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">W_lateral_inhibition_weights</span><span class="o">.</span><span class="n">deconvolve</span><span class="p">(</span><span class="n">ons</span><span class="p">)</span>
+        <span class="n">C_injected_pa</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">C_cone_spectral_type</span><span class="o">.</span><span class="n">C_injection</span><span class="p">(</span><span class="n">pa</span><span class="p">)</span>
+        <span class="n">ip</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">D_demosaicing</span><span class="o">.</span><span class="n">demosaic</span><span class="p">(</span><span class="n">C_injected_pa</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">ip</span>
+    
+    <span class="c1"># Encode the internal percept back to the optic nerve signal</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">encode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ip</span><span class="p">):</span>
+        <span class="n">pa</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">C_cone_spectral_type</span><span class="o">.</span><span class="n">C_sampling</span><span class="p">(</span><span class="n">ip</span><span class="p">)</span>
+        <span class="n">ons</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">W_lateral_inhibition_weights</span><span class="o">.</span><span class="n">convolve</span><span class="p">(</span><span class="n">pa</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">ons</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">decode</span></code> and <code class="docutils literal notranslate"><span class="pre">encode</span></code> functions are the core functions of the cortex model, and they are used to decode the optic nerve signal to the internal percept, and encode the internal percept back to the optic nerve signal.</p>
+<p>The main objective function of the cortical model is to minimize the signal prediction error between the predicted optic nerve signal and the ground truth optic nerve signal.
+So given two optic nerve signals at two different timesteps, the <code class="docutils literal notranslate"><span class="pre">CortexModel</span></code> object would:</p>
+<ol class="arabic simple">
+<li><p>Decode the optic nerve signal at timestep 1 to the internal percept,</p></li>
+<li><p>Translate the internal percept to the next timestep, based on the predicted global movement of the eye,</p></li>
+<li><p>Encode the translated internal percept back to the domain of the optic nerve signal, and</p></li>
+<li><p>Finally, compute the difference between the predicted optic nerve signal and the ground truth optic nerve signal at timestep 2.</p></li>
+</ol>
+<p>This idea is well illustrated in our supplementary video to the paper at <a class="reference external" href="https://color-vision.github.io/">X.XX</a>.</p>
+<p>But for now, setting the technical details aside, let’s dive into the actual training procedure.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="training-the-cortex-model">
+<h2>2. Training the cortex model<a class="headerlink" href="#training-the-cortex-model" title="Link to this heading"></a></h2>
+<p>It is strongly recommended to train the default model on a GPU due to computational complexity.
+When trained with a single NVIDIA 4090 GPU, the default cortex model would take roughly 2 hours to train.</p>
+<p>If you only have access to a CPU and still want to train the cortex model, you can train a <a class="reference internal" href="#training-a-sandbox-cortex-model">sandbox model</a>, which is a lightweight version of both the retina and cortex models, and would take roughly 3 hours to train.</p>
+<p>If you wish to just play around with the cortex model, you can load the pre-trained weights for the default cortex model in the <code class="docutils literal notranslate"><span class="pre">Experiment/LearnedWeights/LMS</span></code> directory. The visualization of the learned internal percepts is demonstrated in <a class="reference internal" href="#visualizing-the-learned-internal-percepts"><span class="std std-ref">the next section</span></a>, and this does not require the GPU access.</p>
+<section id="default-parameters-for-training-the-default-cortex-model">
+<h3>2.1. Default parameters for training the default cortex model<a class="headerlink" href="#default-parameters-for-training-the-default-cortex-model" title="Link to this heading"></a></h3>
+<p>First and foremost, we rely on the yaml file to define all the parameters for the cortical learning simulation.</p>
+<p>Our default yaml file for training the cortex model with a trichromatic retina is located at <a class="reference external" href="https://github.com/atsu-kotani/HumanColorVision/blob/main/Experiment/Config/Default/LMS.yaml">Experiment/Config/Default/LMS.yaml</a>, and here is the snippet of the file:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">Experiment</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;LMS&#39;</span>
+<span class="w">  </span><span class="nt">simulation_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">256</span><span class="w"> </span><span class="c1"># Dimension of the simulation (i.e. 256 for 256x256 cells)</span>
+<span class="w">  </span><span class="nt">timesteps_per_image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span><span class="w"> </span><span class="c1"># Number of timesteps per image (i.e. 2 for timesteps t1 and t2)</span>
+<span class="w">  </span><span class="nt">simulating_tetra</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span><span class="w"> </span><span class="c1"># Whether to simulate tetrachromacy</span>
+
+<span class="c1"># Retinal model parameters</span>
+<span class="nt">RetinaModel</span><span class="p">:</span>
+<span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">.. structurally same as the default retina model in the previous tutorial ..</span>
+
+<span class="c1"># Cortical model parameters</span>
+<span class="nt">CorticalModel</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">cortex_learn_eye_motion</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;Default&#39;</span><span class="w"> </span><span class="c1"># Learning strategy for eye motion in the cortex</span>
+<span class="w">  </span><span class="nt">cortex_learn_spatial_sampling</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;Default&#39;</span><span class="w"> </span><span class="c1"># Learning strategy for spatial sampling in the cortex</span>
+<span class="w">  </span><span class="nt">cortex_learn_cone_spectral_type</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;Default&#39;</span><span class="w"> </span><span class="c1"># Learning strategy for cone spectral type in the cortex</span>
+<span class="w">  </span><span class="nt">cortex_learn_demosaicing</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;Default&#39;</span><span class="w"> </span><span class="c1"># Learning strategy for demosaicing in the cortex</span>
+<span class="w">  </span><span class="nt">cortex_learn_lateral_inhibition</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;Default&#39;</span><span class="w"> </span><span class="c1"># Learning strategy for lateral inhibition in the cortex</span>
+<span class="w">  </span><span class="nt">latent_dim</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">8</span><span class="w"> </span><span class="c1"># Latent dimension (N in the paper) for the cortical model</span>
+
+<span class="c1"># Training parameters</span>
+<span class="nt">Training</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">learning_rate</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.001</span><span class="w"> </span><span class="c1"># Learning rate for the optimizer</span>
+<span class="w">  </span><span class="nt">learning_progress_logging</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w"> </span><span class="c1"># Enable logging of learning progress</span>
+<span class="w">  </span><span class="nt">logging_mode</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;Local&#39;</span><span class="w"> </span><span class="c1"># Mode of logging (&#39;Local&#39;, &#39;Tensorboard&#39;, &#39;Comet&#39;)</span>
+<span class="w">  </span><span class="nt">logging_cycle</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1000</span><span class="w"> </span><span class="c1"># Frequency of logging in terms of gradient updates</span>
+<span class="w">  </span><span class="nt">max_gradient_updates</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">100000</span><span class="w"> </span><span class="c1"># Maximum number of gradient updates for training</span>
+
+<span class="nn">...</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rest of the parameters ...</span>
+</pre></div>
+</div>
+<p>Here, we are using the default modules for the cortex model, as <code class="docutils literal notranslate"><span class="pre">type:</span> <span class="pre">'Default'</span></code>.
+For example, this snippet:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">cortex_learn_cone_spectral_type</span><span class="p">:</span><span class="w"> </span>
+<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;Default&#39;</span>
+</pre></div>
+</div>
+<p>would instantiate the default cone spectral type module, as defined in <a class="reference external" href="https://github.com/atsu-kotani/HumanColorVision/blob/main/Simulated/Cortex/C_cone_spectral_type/C_Default.py">Simulated/Cortex/C_cone_spectral_type/C_Default.py</a>.</p>
+<p>To run the training simulation, in the terminal, navigate to the directory of the codebase, and run the following command:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>train_main.py<span class="w"> </span>-f<span class="w"> </span>Default/LMS.yaml
+</pre></div>
+</div>
+<p>This command will instantiate both the retina and cortex models, based on the set parameters in the yaml file, and start the training simulation.
+If you decided to log the learning progress (i.e. <code class="docutils literal notranslate"><span class="pre">learning_progress_logging:</span> <span class="pre">true</span></code>), you would find the learned weights of the cortex model in the <code class="docutils literal notranslate"><span class="pre">Experiment/LearnedWeights/</span></code> directory.</p>
+<p>In similar fashion with the previous tutorial, you can run the training simulation with different parameters by running the following command:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>train_main.py<span class="w"> </span>-f<span class="w"> </span>Default/L.yaml
+python<span class="w"> </span>train_main.py<span class="w"> </span>-f<span class="w"> </span>Default/M.yaml
+python<span class="w"> </span>train_main.py<span class="w"> </span>-f<span class="w"> </span>Default/S.yaml
+python<span class="w"> </span>train_main.py<span class="w"> </span>-f<span class="w"> </span>Default/LM.yaml
+python<span class="w"> </span>train_main.py<span class="w"> </span>-f<span class="w"> </span>Default/MS.yaml
+python<span class="w"> </span>train_main.py<span class="w"> </span>-f<span class="w"> </span>Default/LS.yaml
+...
+</pre></div>
+</div>
+<p>We are providing the multiple logging modes for the training simulation, as <code class="docutils literal notranslate"><span class="pre">logging_mode:</span> <span class="pre">'Local'</span></code>, <code class="docutils literal notranslate"><span class="pre">'Tensorboard'</span></code>, and <code class="docutils literal notranslate"><span class="pre">'Comet'</span></code>.
+You can choose the one that suits your needs, but for <code class="docutils literal notranslate"><span class="pre">Comet</span></code> option, you would need to create an account on <a class="reference external" href="https://www.comet.com/docs/v2/guides/quickstart/#get-started-experiment-management">Comet</a> and store <code class="docutils literal notranslate"><span class="pre">.comet.config</span></code> file in the root directory of the codebase.</p>
+<p>If the logging mode is set to <code class="docutils literal notranslate"><span class="pre">'Local'</span></code>, you would find the learning progress in the <code class="docutils literal notranslate"><span class="pre">Experiment/Logs/</span></code> directory.</p>
+</section>
+<section id="training-a-sandbox-model">
+<span id="training-a-sandbox-cortex-model"></span><h3>2.2. Training a sandbox model<a class="headerlink" href="#training-a-sandbox-model" title="Link to this heading"></a></h3>
+<p>Our sandbox model is designed to be a lightweight version of both the retina and cortex models.
+The main difference between the sandbox <em>retina</em> model and the default <em>retina</em> model is that the sandbox model only simulates the spectral sampling of the retina and ignores the spatial sampling and the lateral inhibition.
+Similarly, the sandbox <em>cortex</em> model only learns the spectral indetity of each cone type in the retina, and uses the ground truth eye motion value and thus skips the learning of eye motion in the cortex. The scale of the simulation is reduced to 64x64 cells, whereas the default model is simulated with 256x256 cells.</p>
+<p>To train the sandbox model, you can run the following command:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>train_main.py<span class="w"> </span>-f<span class="w"> </span>Sandbox.yaml
+</pre></div>
+</div>
+<p>For further datails of the sandbox setting, please refer to the <a class="reference external" href="https://github.com/atsu-kotani/HumanColorVision/blob/main/Experiment/Config/Sandbox.yaml">sandbox yaml file</a>.</p>
+<hr class="docutils" />
+</section>
+</section>
+<section id="visualizing-the-learned-internal-percepts">
+<span id="id1"></span><h2>3. Visualizing the learned internal percepts<a class="headerlink" href="#visualizing-the-learned-internal-percepts" title="Link to this heading"></a></h2>
+<p>After the cortex model is updated for <code class="docutils literal notranslate"><span class="pre">max_gradient_updates</span></code> times, the code will terminate the training simulation, and you are then set to visualize the learned progress.</p>
+<p>In this section, we will demonstrate how to load the pre-trained cortex model, and visualize the learned internal percepts.</p>
+<p>First, we show how to initialize both the retina and cortex models.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pickle</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">root_config</span><span class="w"> </span><span class="kn">import</span> <span class="n">DEVICE</span><span class="p">,</span> <span class="n">ROOT_DIR</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">Simulated.Retina.Model</span><span class="w"> </span><span class="kn">import</span> <span class="n">RetinaModel</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">Simulated.Cortex.Model</span><span class="w"> </span><span class="kn">import</span> <span class="n">CortexModel</span>
+
+<span class="c1"># Load the default parameters for the trichromatic retina simulation</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">ROOT_DIR</span><span class="si">}</span><span class="s1">/Experiment/Config/Default/LMS.yaml&#39;</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">params</span> <span class="o">=</span> <span class="n">yaml</span><span class="o">.</span><span class="n">safe_load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+
+<span class="c1"># Initialize the retina model</span>
+<span class="n">retina</span> <span class="o">=</span> <span class="n">RetinaModel</span><span class="p">(</span><span class="n">params</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">DEVICE</span><span class="p">)</span>
+
+<span class="c1"># Initialize the cortex model</span>
+<span class="n">cortex</span> <span class="o">=</span> <span class="n">CortexModel</span><span class="p">(</span><span class="n">params</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">DEVICE</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The input to the <code class="docutils literal notranslate"><span class="pre">cortex</span></code>’s decode function is the optic nerve signal, which is the output of the retina simulation.
+Here we use the same example image as in <a class="reference internal" href="2_RetinaSimulation.html"><span class="std std-doc">the previous tutorial</span></a> to generate the optic nerve signal.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># You can change the example_image_path to the path of your own image</span>
+<span class="n">example_image_path</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">ROOT_DIR</span><span class="si">}</span><span class="s1">/Tutorials/data/sample_sRGB_image.png&#39;</span>
+<span class="n">example_sRGB_image</span> <span class="o">=</span> <span class="n">load_sRGB_image</span><span class="p">(</span><span class="n">example_image_path</span><span class="p">,</span> <span class="n">params</span><span class="p">)</span>
+
+<span class="c1"># retina.CST (color space transform) is used to convert the color space</span>
+<span class="c1"># In this case, we convert the sRGB image to linsRGB, and then to LMS</span>
+<span class="n">example_linsRGB_image</span> <span class="o">=</span> <span class="n">retina</span><span class="o">.</span><span class="n">CST</span><span class="o">.</span><span class="n">sRGB_to_linsRGB</span><span class="p">(</span><span class="n">example_sRGB_image</span><span class="p">)</span>
+<span class="n">example_LMS_image</span> <span class="o">=</span> <span class="n">retina</span><span class="o">.</span><span class="n">CST</span><span class="o">.</span><span class="n">linsRGB_to_LMS</span><span class="p">(</span><span class="n">example_linsRGB_image</span><span class="p">)</span>
+<span class="n">example_LMS_image</span> <span class="o">=</span> <span class="n">example_LMS_image</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">permute</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+
+<span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span> <span class="c1"># gradient computation is not needed for retina simulation</span>
+    <span class="n">list_of_retinal_responses</span> <span class="o">=</span> <span class="n">retina</span><span class="o">.</span><span class="n">forward</span><span class="p">(</span><span class="n">example_LMS_image</span><span class="p">,</span> <span class="n">intermediate_outputs</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">optic_nerve_signals</span> <span class="o">=</span> <span class="n">list_of_retinal_responses</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>Next, we decode the optic nerve signal to the internal percept.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">num_gradient_updates</span> <span class="o">=</span> <span class="mi">100000</span>
+<span class="c1"># Load the pre-trained weights for the default cortex model</span>
+<span class="n">cortex</span><span class="o">.</span><span class="n">load_state_dict</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">ROOT_DIR</span><span class="si">}</span><span class="s1">/Experiment/LearnedWeights/LMS/</span><span class="si">{</span><span class="n">num_gradient_updates</span><span class="si">}</span><span class="s1">.pt&#39;</span><span class="p">,</span> <span class="n">weights_only</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">map_location</span><span class="o">=</span><span class="n">DEVICE</span><span class="p">))</span>
+
+<span class="n">warped_internal_percept</span> <span class="o">=</span> <span class="n">cortex</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="n">optic_nerve_signals</span><span class="p">)</span>
+
+<span class="c1"># internal percept is N-channel image, where N is the latent dimension (N is formally defined in the paper)</span>
+<span class="c1"># We use the ns_ip module (neural scope for internal percept) to project the percept to the linsRGB space</span>
+<span class="n">warped_internal_percept_linsRGB</span> <span class="o">=</span> <span class="n">cortex</span><span class="o">.</span><span class="n">ns_ip</span><span class="o">.</span><span class="n">forward</span><span class="p">(</span><span class="n">warped_internal_percept</span><span class="p">)</span>
+
+<span class="c1"># Then we use the retina.CST (color space transform) to convert the linsRGB space to the sRGB space</span>
+<span class="n">warped_internal_percept_sRGB</span> <span class="o">=</span> <span class="n">retina</span><span class="o">.</span><span class="n">CST</span><span class="o">.</span><span class="n">linsRGB_to_sRGB</span><span class="p">(</span><span class="n">warped_internal_percept_linsRGB</span><span class="p">)</span>
+
+<span class="c1"># get_unwarped_percept is a helper function defined in the ipython notebook file</span>
+<span class="n">internal_percept_sRGB</span> <span class="o">=</span> <span class="n">get_unwarped_percept</span><span class="p">(</span><span class="n">warped_internal_percept_sRGB</span><span class="p">,</span> <span class="n">cortex</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Here <code class="docutils literal notranslate"><span class="pre">internal_percept_sRGB</span></code> is the learned internal percept, projected to the sRGB space, after the cortex model is trained for <code class="docutils literal notranslate"><span class="pre">num_gradient_updates</span></code>=100000 times.</p>
+<p>If we vary the <code class="docutils literal notranslate"><span class="pre">num_gradient_updates</span></code> value, we can visualize the learned internal percepts at different stages of the training, and here is the example:</p>
+<div style="display: flex; flex-wrap: wrap; justify-content: space-between;" align="center">
+    <div style="flex: 1 1 33%; margin: 0px;">
+        <img src="../../_static/learned_percept.gif" alt="Current FoV (sRGB)" style="width: 50%;">
+    </div>
+</div>
+<p>Note that the cortex model never sees this sRGB test image (as only hyperspectral images are used for training), but it successfully learns to generate the smooth internal percept in color. The reason why this percept wobbles a bit is because the cortex continuously updates the inferred cell positions – what’s important is the general trend that the spatial warping is correctly filtered out.</p>
+</section>
+<hr class="docutils" />
+<section id="conclusion">
+<h2>4. Conclusion<a class="headerlink" href="#conclusion" title="Link to this heading"></a></h2>
+<p>In this tutorial, we demonstrated how to train the cortex model from scratch, and visualize the learned internal percepts.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="2_RetinaSimulation.html" class="btn btn-neutral float-left" title="Retina Simulation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="4_CustomSimulation.html" class="btn btn-neutral float-right" title="Custom Simulation" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Atsunobu Kotani.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

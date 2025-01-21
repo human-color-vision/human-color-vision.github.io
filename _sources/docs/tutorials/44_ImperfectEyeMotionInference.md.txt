@@ -1,0 +1,3 @@
+(simulation-of-imperfect-eye-motion-inference-and-its-effect-on-color-perception)=
+# 4. Simulation of imperfect eye motion inference and its effect on color perception
+

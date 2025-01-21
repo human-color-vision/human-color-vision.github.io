@@ -1,0 +1,15 @@
+.. _tutorials:
+
+About this tutorial
+===================
+
+This is the official tutorial page for the paper **"A Computational Framework for Modeling the Emergence of Color Vision in the Human Brain"** by `Atsunobu Kotani <https://www.atsunobukotani.com/research>`_ and `Ren Ng <https://www2.eecs.berkeley.edu/Faculty/Homepages/yirenng.html>`_.
+
+
+.. About this tutorial
+.. -------------------
+
+In this series of tutorials, we will guide you through the process of simulating the emergence of color vision in the human brain.
+
+Once you finish the tutorials, you will be able to understand the basic structure of the codebase and how to modify it to suit your needs.
+

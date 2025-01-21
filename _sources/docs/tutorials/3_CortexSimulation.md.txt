@@ -1,0 +1,258 @@
+(cortexsimulation)=
+
+# Cortex Simulation
+
+## 0. Introduction
+
+This section of the tutorial provides step-by-step guidance on running our cortex simulation model and generating a set of retinal responses. 
+The corresponding Jupyter notebook files for this tutorial are available at [Tutorials/02_CortexSimulation](https://github.com/atsu-kotani/HumanColorVision/tree/main/Tutorials/02_CortexSimulation).
+
+By the end of this tutorial, you will be able to:
+1. Train the cortex model from scratch, and
+2. Visualize the learned internal percepts.
+
+---
+
+## 1. Cortex model overview
+
+The codebase for the cortex simulation is located under [Simulated/Cortex](https://github.com/atsu-kotani/HumanColorVision/tree/main/Simulated/Cortex). 
+It is organized to facilitate ease of use, modification, and understanding. Below is the general structure of the directory:
+
+### Directory Structure
+- **`Simulated/Cortex`**
+  - **`CortexModel.py`** (Main class)
+  - **Modules for the cortex simulation**:
+    - **`C_cone_spectral_type`** folder
+    - **`D_demosaicing`** folder
+    - **`M_global_movement`** folder
+    - **`P_cell_position`** folder
+    - **`W_lateral_inhibition_weights`** folder
+
+In [CortexModel.py](https://github.com/atsu-kotani/HumanColorVision/blob/main/Simulated/Cortex/CortexModel.py), the CortexModel class is defined, as it follows:
+
+```python
+class CortexModel(nn.Module):
+    def __init__(self, params):
+        super(CortexModel, self).__init__()
+
+        self.C_cone_spectral_type         = create_C_cone_spectral_type(params)
+        self.D_demosaicing                = create_D_demosaicing(params)
+        self.M_global_movement            = create_M_global_movement(params)
+        self.P_cell_position              = create_P_cell_position(params)
+        self.W_lateral_inhibition_weights = create_W_lateral_inhibition_weights(params)
+
+        ... rest of the code ...
+
+    # Decode the optic nerve signal to the internal percept
+    def decode(self, ons):
+        pa = self.W_lateral_inhibition_weights.deconvolve(ons)
+        C_injected_pa = self.C_cone_spectral_type.C_injection(pa)
+        ip = self.D_demosaicing.demosaic(C_injected_pa)
+        return ip
+    
+    # Encode the internal percept back to the optic nerve signal
+    def encode(self, ip):
+        pa = self.C_cone_spectral_type.C_sampling(ip)
+        ons = self.W_lateral_inhibition_weights.convolve(pa)
+        return ons
+```
+
+The `decode` and `encode` functions are the core functions of the cortex model, and they are used to decode the optic nerve signal to the internal percept, and encode the internal percept back to the optic nerve signal.
+
+The main objective function of the cortical model is to minimize the signal prediction error between the predicted optic nerve signal and the ground truth optic nerve signal.
+So given two optic nerve signals at two different timesteps, the `CortexModel` object would:
+1. Decode the optic nerve signal at timestep 1 to the internal percept,
+2. Translate the internal percept to the next timestep, based on the predicted global movement of the eye,
+3. Encode the translated internal percept back to the domain of the optic nerve signal, and
+4. Finally, compute the difference between the predicted optic nerve signal and the ground truth optic nerve signal at timestep 2.
+
+This idea is well illustrated in our supplementary video to the paper at [X.XX](https://color-vision.github.io/).
+
+But for now, setting the technical details aside, let's dive into the actual training procedure.
+
+---
+
+## 2. Training the cortex model
+
+It is strongly recommended to train the default model on a GPU due to computational complexity.
+When trained with a single NVIDIA 4090 GPU, the default cortex model would take roughly 2 hours to train.
+
+If you only have access to a CPU and still want to train the cortex model, you can train a [sandbox model](#training-a-sandbox-cortex-model), which is a lightweight version of both the retina and cortex models, and would take roughly 3 hours to train.
+
+If you wish to just play around with the cortex model, you can load the pre-trained weights for the default cortex model in the `Experiment/LearnedWeights/LMS` directory. The visualization of the learned internal percepts is demonstrated in [the next section](visualizing-the-learned-internal-percepts), and this does not require the GPU access.
+
+
+### 2.1. Default parameters for training the default cortex model
+
+First and foremost, we rely on the yaml file to define all the parameters for the cortical learning simulation.
+
+Our default yaml file for training the cortex model with a trichromatic retina is located at [Experiment/Config/Default/LMS.yaml](https://github.com/atsu-kotani/HumanColorVision/blob/main/Experiment/Config/Default/LMS.yaml), and here is the snippet of the file:
+
+```yaml
+Experiment:
+  name: 'LMS'
+  simulation_size: 256 # Dimension of the simulation (i.e. 256 for 256x256 cells)
+  timesteps_per_image: 2 # Number of timesteps per image (i.e. 2 for timesteps t1 and t2)
+  simulating_tetra: false # Whether to simulate tetrachromacy
+
+# Retinal model parameters
+RetinaModel:
+  .. structurally same as the default retina model in the previous tutorial ..
+
+# Cortical model parameters
+CorticalModel:
+  cortex_learn_eye_motion:
+    type: 'Default' # Learning strategy for eye motion in the cortex
+  cortex_learn_spatial_sampling:
+    type: 'Default' # Learning strategy for spatial sampling in the cortex
+  cortex_learn_cone_spectral_type:
+    type: 'Default' # Learning strategy for cone spectral type in the cortex
+  cortex_learn_demosaicing:
+    type: 'Default' # Learning strategy for demosaicing in the cortex
+  cortex_learn_lateral_inhibition:
+    type: 'Default' # Learning strategy for lateral inhibition in the cortex
+  latent_dim: 8 # Latent dimension (N in the paper) for the cortical model
+
+# Training parameters
+Training:
+  learning_rate: 0.001 # Learning rate for the optimizer
+  learning_progress_logging: true # Enable logging of learning progress
+  logging_mode: 'Local' # Mode of logging ('Local', 'Tensorboard', 'Comet')
+  logging_cycle: 1000 # Frequency of logging in terms of gradient updates
+  max_gradient_updates: 100000 # Maximum number of gradient updates for training
+
+... rest of the parameters ...
+```
+
+Here, we are using the default modules for the cortex model, as `type: 'Default'`. 
+For example, this snippet:
+```yaml
+cortex_learn_cone_spectral_type: 
+  type: 'Default'
+```
+would instantiate the default cone spectral type module, as defined in [Simulated/Cortex/C_cone_spectral_type/C_Default.py](https://github.com/atsu-kotani/HumanColorVision/blob/main/Simulated/Cortex/C_cone_spectral_type/C_Default.py).
+
+To run the training simulation, in the terminal, navigate to the directory of the codebase, and run the following command:
+```bash
+python train_main.py -f Default/LMS.yaml
+```
+This command will instantiate both the retina and cortex models, based on the set parameters in the yaml file, and start the training simulation.
+If you decided to log the learning progress (i.e. `learning_progress_logging: true`), you would find the learned weights of the cortex model in the `Experiment/LearnedWeights/` directory.
+
+In similar fashion with the previous tutorial, you can run the training simulation with different parameters by running the following command:
+```bash
+python train_main.py -f Default/L.yaml
+python train_main.py -f Default/M.yaml
+python train_main.py -f Default/S.yaml
+python train_main.py -f Default/LM.yaml
+python train_main.py -f Default/MS.yaml
+python train_main.py -f Default/LS.yaml
+...
+```
+
+We are providing the multiple logging modes for the training simulation, as `logging_mode: 'Local'`, `'Tensorboard'`, and `'Comet'`.
+You can choose the one that suits your needs, but for `Comet` option, you would need to create an account on [Comet](https://www.comet.com/docs/v2/guides/quickstart/#get-started-experiment-management) and store `.comet.config` file in the root directory of the codebase.
+
+If the logging mode is set to `'Local'`, you would find the learning progress in the `Experiment/Logs/` directory.
+
+
+(training-a-sandbox-cortex-model)=
+### 2.2. Training a sandbox model
+
+Our sandbox model is designed to be a lightweight version of both the retina and cortex models.
+The main difference between the sandbox *retina* model and the default *retina* model is that the sandbox model only simulates the spectral sampling of the retina and ignores the spatial sampling and the lateral inhibition. 
+Similarly, the sandbox *cortex* model only learns the spectral indetity of each cone type in the retina, and uses the ground truth eye motion value and thus skips the learning of eye motion in the cortex. The scale of the simulation is reduced to 64x64 cells, whereas the default model is simulated with 256x256 cells.
+
+To train the sandbox model, you can run the following command:
+```bash
+python train_main.py -f Sandbox.yaml
+```
+
+For further datails of the sandbox setting, please refer to the [sandbox yaml file](https://github.com/atsu-kotani/HumanColorVision/blob/main/Experiment/Config/Sandbox.yaml).
+
+---
+
+(visualizing-the-learned-internal-percepts)=
+## 3. Visualizing the learned internal percepts
+
+After the cortex model is updated for `max_gradient_updates` times, the code will terminate the training simulation, and you are then set to visualize the learned progress.
+
+In this section, we will demonstrate how to load the pre-trained cortex model, and visualize the learned internal percepts.
+
+First, we show how to initialize both the retina and cortex models.
+
+```python
+import torch
+import pickle
+from root_config import DEVICE, ROOT_DIR
+from Simulated.Retina.Model import RetinaModel
+from Simulated.Cortex.Model import CortexModel
+
+# Load the default parameters for the trichromatic retina simulation
+with open(f'{ROOT_DIR}/Experiment/Config/Default/LMS.yaml', 'r') as f:
+    params = yaml.safe_load(f)
+
+# Initialize the retina model
+retina = RetinaModel(params).to(DEVICE)
+
+# Initialize the cortex model
+cortex = CortexModel(params).to(DEVICE)
+```
+
+The input to the `cortex`'s decode function is the optic nerve signal, which is the output of the retina simulation.
+Here we use the same example image as in [the previous tutorial](2_RetinaSimulation.md) to generate the optic nerve signal.
+
+```python
+# You can change the example_image_path to the path of your own image
+example_image_path = f'{ROOT_DIR}/Tutorials/data/sample_sRGB_image.png'
+example_sRGB_image = load_sRGB_image(example_image_path, params)
+
+# retina.CST (color space transform) is used to convert the color space
+# In this case, we convert the sRGB image to linsRGB, and then to LMS
+example_linsRGB_image = retina.CST.sRGB_to_linsRGB(example_sRGB_image)
+example_LMS_image = retina.CST.linsRGB_to_LMS(example_linsRGB_image)
+example_LMS_image = example_LMS_image.unsqueeze(0).permute(0, 3, 1, 2)
+
+with torch.no_grad(): # gradient computation is not needed for retina simulation
+    list_of_retinal_responses = retina.forward(example_LMS_image, intermediate_outputs=True)
+    optic_nerve_signals = list_of_retinal_responses[0]
+```
+
+Next, we decode the optic nerve signal to the internal percept.
+
+```python
+num_gradient_updates = 100000
+# Load the pre-trained weights for the default cortex model
+cortex.load_state_dict(torch.load(f'{ROOT_DIR}/Experiment/LearnedWeights/LMS/{num_gradient_updates}.pt', weights_only=True, map_location=DEVICE))
+
+warped_internal_percept = cortex.decode(optic_nerve_signals)
+
+# internal percept is N-channel image, where N is the latent dimension (N is formally defined in the paper)
+# We use the ns_ip module (neural scope for internal percept) to project the percept to the linsRGB space
+warped_internal_percept_linsRGB = cortex.ns_ip.forward(warped_internal_percept)
+
+# Then we use the retina.CST (color space transform) to convert the linsRGB space to the sRGB space
+warped_internal_percept_sRGB = retina.CST.linsRGB_to_sRGB(warped_internal_percept_linsRGB)
+
+# get_unwarped_percept is a helper function defined in the ipython notebook file
+internal_percept_sRGB = get_unwarped_percept(warped_internal_percept_sRGB, cortex)
+```
+
+Here `internal_percept_sRGB` is the learned internal percept, projected to the sRGB space, after the cortex model is trained for `num_gradient_updates`=100000 times.
+
+If we vary the `num_gradient_updates` value, we can visualize the learned internal percepts at different stages of the training, and here is the example:
+
+<div style="display: flex; flex-wrap: wrap; justify-content: space-between;" align="center">
+    <div style="flex: 1 1 33%; margin: 0px;">
+        <img src="../../_static/learned_percept.gif" alt="Current FoV (sRGB)" style="width: 50%;">
+    </div>
+</div>
+
+Note that the cortex model never sees this sRGB test image (as only hyperspectral images are used for training), but it successfully learns to generate the smooth internal percept in color. The reason why this percept wobbles a bit is because the cortex continuously updates the inferred cell positions -- what's important is the general trend that the spatial warping is correctly filtered out.
+
+---
+
+## 4. Conclusion
+
+In this tutorial, we demonstrated how to train the cortex model from scratch, and visualize the learned internal percepts.
+

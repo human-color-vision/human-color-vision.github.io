@@ -1,0 +1,297 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>2. Simulation of extreme cone positions</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=97580af3" />
+
+  
+    <link rel="shortcut icon" href="../../_static/favicon.png"/>
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="3. Simulation of cone cell death" href="43_ConeCellDeath.html" />
+    <link rel="prev" title="1. Simulation of anomalous trichromat" href="41_AnamalousTrichromat.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            Human Color Vision
+              <img src="../../_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Tutorials</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="0_About.html">About this tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1_GettingStarted.html">Getting Started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="1_GettingStarted.html#download-the-codebase">1. Download the codebase</a></li>
+<li class="toctree-l2"><a class="reference internal" href="1_GettingStarted.html#install-the-required-packages">2. Install the required packages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="1_GettingStarted.html#using-local-pip">Using local pip</a></li>
+<li class="toctree-l3"><a class="reference internal" href="1_GettingStarted.html#using-virtualenv">Using virtualenv</a></li>
+<li class="toctree-l3"><a class="reference internal" href="1_GettingStarted.html#using-conda">Using Conda</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="1_GettingStarted.html#check-installation">3. Check installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="1_GettingStarted.html#optional-download-the-ntire-dataset">4. (Optional) Download the NTIRE dataset</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="2_RetinaSimulation.html">Retina Simulation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="2_RetinaSimulation.html#introduction">0. Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="2_RetinaSimulation.html#retina-model-overview">1. Retina model overview</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="2_RetinaSimulation.html#directory-structure">Directory Structure</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="2_RetinaSimulation.html#simulating-optic-nerve-signals-with-a-default-trichromatic-retina">2. Simulating optic nerve signals with a default trichromatic retina</a></li>
+<li class="toctree-l2"><a class="reference internal" href="2_RetinaSimulation.html#simulating-different-retina-models">3. Simulating different retina models</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="2_RetinaSimulation.html#change-the-parameters-in-the-yaml-file">3.1. Change the parameters in the yaml file</a></li>
+<li class="toctree-l3"><a class="reference internal" href="2_RetinaSimulation.html#directly-modify-the-yaml-object">3.2. Directly modify the yaml object</a></li>
+<li class="toctree-l3"><a class="reference internal" href="2_RetinaSimulation.html#directly-modify-the-instance-of-the-retina-model">3.3. Directly modify the instance of the retina model</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="2_RetinaSimulation.html#conclusion">4. Conclusion</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="3_CortexSimulation.html">Cortex Simulation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="3_CortexSimulation.html#introduction">0. Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="3_CortexSimulation.html#cortex-model-overview">1. Cortex model overview</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="3_CortexSimulation.html#directory-structure">Directory Structure</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="3_CortexSimulation.html#training-the-cortex-model">2. Training the cortex model</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="3_CortexSimulation.html#default-parameters-for-training-the-default-cortex-model">2.1. Default parameters for training the default cortex model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="3_CortexSimulation.html#training-a-sandbox-model">2.2. Training a sandbox model</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="3_CortexSimulation.html#visualizing-the-learned-internal-percepts">3. Visualizing the learned internal percepts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="3_CortexSimulation.html#conclusion">4. Conclusion</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="4_CustomSimulation.html">Custom Simulation</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="41_AnamalousTrichromat.html">1. Simulation of anomalous trichromat</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="41_AnamalousTrichromat.html#what-is-anomalous-trichromat">What is Anomalous Trichromat?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="41_AnamalousTrichromat.html#identify-the-module-to-customize">1.1. Identify the Module to Customize</a></li>
+<li class="toctree-l3"><a class="reference internal" href="41_AnamalousTrichromat.html#define-your-configuration">1.2. Define Your Configuration</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="41_AnamalousTrichromat.html#default-yaml-configuration">Default YAML Configuration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="41_AnamalousTrichromat.html#modified-yaml-configuration">Modified YAML Configuration</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="41_AnamalousTrichromat.html#run-and-analyze">1.3. Run and analyze</a></li>
+<li class="toctree-l3"><a class="reference internal" href="41_AnamalousTrichromat.html#further-analysis-optional">1.4. Further analysis (Optional)</a></li>
+</ul>
+</li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">2. Simulation of extreme cone positions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#identify-the-module-to-customize">2.1. Identify the module to customize</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#define-your-configuration">2.2. Define your configuration</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#default-yaml-configuration">Default YAML Configuration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#modified-yaml-configuration">Modified YAML Configuration</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#run-and-analyze">2.3. Run and analyze</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#further-analysis-optional">2.4. Further analysis (Optional)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#conclusion">2.5. Conclusion</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="43_ConeCellDeath.html">3. Simulation of cone cell death</a></li>
+<li class="toctree-l2"><a class="reference internal" href="44_ImperfectEyeMotionInference.html">4. Simulation of imperfect eye motion inference and its effect on color perception</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Supplementary</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../paper/index.html">Supplementary Video</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Human Color Vision</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="4_CustomSimulation.html">Custom Simulation</a></li>
+      <li class="breadcrumb-item active">2. Simulation of extreme cone positions</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section class="tex2jax_ignore mathjax_ignore" id="simulation-of-extreme-cone-positions">
+<span id="id1"></span><h1>2. Simulation of extreme cone positions<a class="headerlink" href="#simulation-of-extreme-cone-positions" title="Link to this heading"></a></h1>
+<p>The cone positions in our default retina model has a single fovea, which creates a foveation effect in the simulated retinal responses.
+But it is known that other animals have totally different distribution of cone positions, such as two foveas in hawks or horizontal streak foveas in lizards or kangaroos.</p>
+<p>In this tutorial, we will demonstrate how to simulate such different cone positions, and see how they affect the retinal responses.</p>
+<section id="identify-the-module-to-customize">
+<h2>2.1. Identify the module to customize<a class="headerlink" href="#identify-the-module-to-customize" title="Link to this heading"></a></h2>
+<p>To simulate such different cone positions, we need to modify <code class="docutils literal notranslate"><span class="pre">SpatialSampling</span></code> module in the retina model.
+The folder is located at <a class="reference external" href="https://github.com/atsu-kotani/HumanColorVision/tree/main/Simulated/Retina/FV_spatial_sampling"><code class="docutils literal notranslate"><span class="pre">Simulated/Retina/FV_spatial_sampling</span></code></a>.</p>
+<p>Within this folder:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">FV_Abstract.py</span></code> defines the abstract base class <code class="docutils literal notranslate"><span class="pre">AbstractSpatialSampling</span></code>, which governs spatial sampling.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">FV_Default.py</span></code> defines the default implementation, <code class="docutils literal notranslate"><span class="pre">DefaultSpatialSampling</span></code>.</p></li>
+</ul>
+<p>To create a custom implementation, we need to define a new class inheriting from <code class="docutils literal notranslate"><span class="pre">AbstractSpatialSampling</span></code>. For demonstration, we’ve already provided an example class, <code class="docutils literal notranslate"><span class="pre">CustomSpatialSampling</span></code>, in the file <a class="reference external" href="https://github.com/atsu-kotani/HumanColorVision/blob/main/Simulated/Retina/FV_spatial_sampling/FV_Custom.py"><code class="docutils literal notranslate"><span class="pre">FV_Custom.py</span></code></a>. For more details in the code structure, please refer to the <a class="reference external" href="https://atsu-kotani.github.io/HumanColorVisionWebsite/tutorials/AnamalousTrichromat.html">anomalous trichromacy tutorial</a>.</p>
+</section>
+<hr class="docutils" />
+<section id="define-your-configuration">
+<h2>2.2. Define your configuration<a class="headerlink" href="#define-your-configuration" title="Link to this heading"></a></h2>
+<p>Pausing before implementing the full code of the <code class="docutils literal notranslate"><span class="pre">CustomSpatialSampling</span></code> class, let’s start working on the YAML configuration file.</p>
+<p>One possible update you can make to the default YAML configuration file is as follows:</p>
+<section id="default-yaml-configuration">
+<h3>Default YAML Configuration<a class="headerlink" href="#default-yaml-configuration" title="Link to this heading"></a></h3>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># (Before Change) Default Retinal model parameters</span>
+<span class="nt">RetinaModel</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">retina_spatial_sampling</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;Default&#39;</span><span class="w"> </span><span class="c1"># Spatial sampling strategy for the retina</span>
+</pre></div>
+</div>
+</section>
+<section id="modified-yaml-configuration">
+<h3>Modified YAML Configuration<a class="headerlink" href="#modified-yaml-configuration" title="Link to this heading"></a></h3>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># (After Change) Custom Retinal model parameters</span>
+<span class="nt">RetinaModel</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">retina_spatial_sampling</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;CustomConePositions&#39;</span><span class="w"> </span><span class="c1"># Spatial sampling strategy for the retina</span>
+<span class="w">    </span><span class="nt">cone_position_distribution_type</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;HorizontalStreak&#39;</span><span class="w"> </span><span class="c1"># Type of cone position distribution</span>
+</pre></div>
+</div>
+<p>The full example of the YAML configuration file can be found in the <a class="reference external" href="https://github.com/atsu-kotani/HumanColorVision/blob/main/Tutorials/03_CustomSimulation/Config/HorizontalStreak.yaml"><code class="docutils literal notranslate"><span class="pre">HorizontalStreak.yaml</span></code></a> or <a class="reference external" href="https://github.com/atsu-kotani/HumanColorVision/blob/main/Tutorials/03_CustomSimulation/Config/TwoFoveas.yaml"><code class="docutils literal notranslate"><span class="pre">TwoFoveas.yaml</span></code></a>.</p>
+<p>Now, given this YAML configuration file, let’s implement the <code class="docutils literal notranslate"><span class="pre">CustomSpatialSampling</span></code> class.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="o">...</span>
+<span class="o">...</span><span class="n">imports</span><span class="o">...</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">Simulated.Retina.FV_spatial_sampling</span><span class="w"> </span><span class="kn">import</span> <span class="n">register_class</span>
+
+<span class="nd">@register_class</span><span class="p">(</span><span class="s2">&quot;CustomConePositions&quot;</span><span class="p">)</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">CustomConePositions</span><span class="p">(</span><span class="n">AbstractSpatialSampling</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">CustomConePositions</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">params</span><span class="p">)</span>
+
+        <span class="c1"># Custom cone positions</span>
+        <span class="n">cone_position_distribution_type</span> <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="s1">&#39;RetinaModel&#39;</span><span class="p">][</span><span class="s1">&#39;retina_spatial_sampling&#39;</span><span class="p">][</span><span class="s1">&#39;cone_position_distribution_type&#39;</span><span class="p">]</span>
+        <span class="n">cone_locs</span><span class="p">,</span> <span class="n">mip_level</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">required_image_resolution</span> <span class="o">=</span> <span class="n">get_cone_sampling_map</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="n">cone_distribution_type</span><span class="o">=</span><span class="n">cone_position_distribution_type</span><span class="p">)</span>
+        <span class="o">...</span><span class="n">rest</span> <span class="n">of</span> <span class="n">the</span> <span class="n">code</span><span class="o">...</span>
+</pre></div>
+</div>
+<p>The idea here is to utilize the defined parameter <code class="docutils literal notranslate"><span class="pre">cone_position_distribution_type</span></code> to specify the distribution of the cone positions.
+We have pre-computed different distribution of the cone positions in the <code class="docutils literal notranslate"><span class="pre">get_cone_sampling_map</span></code> function, and you can choose the one you want.</p>
+<p>Obviously, this is not the only way to modify the cone positions, and you can implement your own function to define the cone positions.</p>
+<p>For example, instead of giving the cone positions explicitly as a 2D grid, you can define the cone positions by an inplicit function.
+If we were to simulate two foveas, one example of the function is:
+$<span class="math notranslate nohighlight">\(
+f(x, y) = 1 - \left[ \exp\left(-\alpha \left((x + 0.5)^2 + y^2\right)\right) + \exp\left(-\alpha \left((x - 0.5)^2 + y^2\right)\right) \right]
+\)</span><span class="math notranslate nohighlight">\(
+where \)</span>\alpha$ is a parameter that controls the sharpness of the distribution.
+You can choose to make your own custom class that takes this density function and generate the cone positions accordingly. But this is beyond the scope of this tutorial, so we will leave it as an exercise for the reader.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="run-and-analyze">
+<h2>2.3. Run and analyze<a class="headerlink" href="#run-and-analyze" title="Link to this heading"></a></h2>
+<p>Now, let’s instantiate three retina models, one with the default cone positions, one with the horizontal streak fovea, and one with the two foveas.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">Simulated.Retina.RetinaModel</span><span class="w"> </span><span class="kn">import</span> <span class="n">RetinaModel</span>
+
+<span class="c1"># DEFAULT RETINA MODEL</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">ROOT_DIR</span><span class="si">}</span><span class="s1">/Tutorials/03_CustomSimulation/Config/Default.yaml&#39;</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">default_params</span> <span class="o">=</span> <span class="n">yaml</span><span class="o">.</span><span class="n">safe_load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+<span class="n">retina_model_default</span> <span class="o">=</span> <span class="n">RetinaModel</span><span class="p">(</span><span class="n">default_params</span><span class="p">)</span>
+
+<span class="c1"># Load the default parameters for the trichromatic retina simulation</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">ROOT_DIR</span><span class="si">}</span><span class="s1">/Tutorials/03_CustomSimulation/Config/HorizontalStreak.yaml&#39;</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">horizontal_streak_params</span> <span class="o">=</span> <span class="n">yaml</span><span class="o">.</span><span class="n">safe_load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+<span class="n">retina_model_horizontal_streak</span> <span class="o">=</span> <span class="n">RetinaModel</span><span class="p">(</span><span class="n">horizontal_streak_params</span><span class="p">)</span>
+
+<span class="c1"># Load the parameters for the anomalous trichromatic retina simulation</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">ROOT_DIR</span><span class="si">}</span><span class="s1">/Tutorials/03_CustomSimulation/Config/TwoFoveas.yaml&#39;</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">two_foveas_params</span> <span class="o">=</span> <span class="n">yaml</span><span class="o">.</span><span class="n">safe_load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+<span class="n">retina_model_two_foveas</span> <span class="o">=</span> <span class="n">RetinaModel</span><span class="p">(</span><span class="n">two_foveas_params</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>If we were to visualize the cone positions, we can see the following results:</p>
+<p><img alt="Comparison of cone positions" src="../../_images/cone_positions_comparison.png" /></p>
+<p>And if we were to compare the retinal responses of the three models, we can see the following results:</p>
+<p><img alt="Comparison of retinal responses" src="../../_images/horizontal_streak_vs_two_foveas.png" /></p>
+</section>
+<hr class="docutils" />
+<section id="further-analysis-optional">
+<h2>2.4. Further analysis (Optional)<a class="headerlink" href="#further-analysis-optional" title="Link to this heading"></a></h2>
+<p>Now you defined a custom retina model, you can try training the cortex model with the specific retina model.
+This is to test whether the cortex model can learn to infer complex distributions of the cone positions from the retinal responses, and you can do so by the following code:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">train_main</span><span class="o">.</span><span class="n">py</span> <span class="o">-</span><span class="n">f</span> <span class="o">&lt;</span><span class="n">path_to_your_custom_retina_model_yaml_file</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+</section>
+<section id="conclusion">
+<h2>2.5. Conclusion<a class="headerlink" href="#conclusion" title="Link to this heading"></a></h2>
+<p>In this tutorial, we have demonstrated how to simulate different cone positions, and see how they affect the retinal responses.
+Similar to the <a class="reference external" href="https://atsu-kotani.github.io/HumanColorVisionWebsite/tutorials/AnamalousTrichromat.html">anomalous trichromacy tutorial</a>, we have demonstrated how you can customize the retina model to fit your needs.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="41_AnamalousTrichromat.html" class="btn btn-neutral float-left" title="1. Simulation of anomalous trichromat" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="43_ConeCellDeath.html" class="btn btn-neutral float-right" title="3. Simulation of cone cell death" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Atsunobu Kotani.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

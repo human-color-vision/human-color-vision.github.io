@@ -1,0 +1,83 @@
+# Getting Started
+
+## 1. Download the codebase
+
+This tutorial provides step-by-step guidance on how to set up the codebase.
+
+First, download the codebase from our GitHub repository: [https://github.com/atsu-kotani/HumanColorVision](https://github.com/atsu-kotani/HumanColorVision).
+
+After downloading the codebase, you need to install the required packages.
+
+## 2. Install the required packages
+
+
+### Using local pip
+
+If you are using local pip, you can install the required packages by running the following command:
+
+```bash
+python -V # check the version of python (tested to work with python 3.10)
+pip install -r requirements.txt
+```
+
+### Using virtualenv
+
+If you are using virtualenv to manage your Python environment, you can install the required packages by running the following command:
+
+```bash
+pip install virtualenv # if virtualenv is not installed
+virtualenv -p python3.10 HumanColorVision # create the environment
+source HumanColorVision/bin/activate # activate the environment
+pip install -r requirements.txt # install the required packages
+```
+
+### Using [Conda](https://docs.anaconda.com/miniconda/install/#quick-command-line-install)
+
+If you are using Conda to manage your Python environment, you can install the required packages by running the following command:
+
+```bash
+conda create --name HumanColorVision python=3.10 # create the environment
+conda activate HumanColorVision # activate the environment
+pip install -r requirements.txt # install the required packages
+```
+
+
+
+## 3. Check installation
+
+To check if the installation is successful, you can run the following command from the root directory of the codebase (i.e. `./HumanColorVision/`):
+
+```bash
+python check_installation.py
+```
+
+If the installation is successful, you should see the following output:
+
+```bash
+**************************************************
+             Installation successful!
+**************************************************
+```
+
+If you see any errors, please check the installation instructions again.
+
+
+## 4. (Optional) Download the NTIRE dataset
+
+If you wish to reproduce the results in the paper or train your own model using the hyperspectral image dataset, you will need to download the [NTIRE 2022 dataset](https://data.vision.ee.ethz.ch/cvl/ntire22/).
+
+The downloaded hyperspectral image file (e.g. `ARAD_1K_0001.mat`) should be placed under `HumanColorVision/Dataset/NTIRE2022_original/data/`.
+
+
+<!-- # (Optional) 5. Download the weights of the pre-trained models
+
+If you wish to avoid training the models from scratch, you can download the weights of the pre-trained models by running the following command from the root directory of the codebase (i.e. `./HumanColorVision/`):
+
+```bash
+cd Experiments
+./download_pretrained_models.sh
+```
+
+This will populate a `LearnedWeights` folder under the `Experiments` directory with the weights of the pre-trained models.
+
+ -->

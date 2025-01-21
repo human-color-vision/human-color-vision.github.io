@@ -1,0 +1,2 @@
+(simulation-of-cone-cell-death)=
+# 3. Simulation of cone cell death

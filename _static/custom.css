@@ -1,0 +1,48 @@
+/* background color of the icon */
+.wy-side-nav-search {
+    background-color: #000000 !important;
+}
+
+/* remove the text from the icon */
+.wy-side-nav-search .icon.icon-home {
+    font-size: 0;
+    padding: 0;
+}
+
+.wy-side-nav-search .icon::before {
+    content: none;  /* Removes the ::before content, which is the home icon */
+}
+
+/* remove the padding for the icon image */
+.wy-side-nav-search a.icon img.logo {
+    padding: 0;
+    margin: 0 0 10px 0;
+}
+
+.headerlink {
+    display: none;
+}
+
+#a-computational-framework-for-modeling-the-emergence-of-color-vision-in-the-human-brain h1 {
+    text-align: center;
+}
+
+#atsunobu-kotani-ren-ng h2 {
+    text-align: center;
+}
+
+#a-computational-framework-for-modeling-the-emergence-of-color-vision-in-the-human-brain .headerlink {
+    display: none;
+}
+
+#atsunobu-kotani-ren-ng .headerlink {
+    display: none;
+}
+
+#department-of-electrical-engineering-and-computer-sciences-university-of-california-berkeley h3 {
+    text-align: center;
+}
+
+#department-of-electrical-engineering-and-computer-sciences-university-of-california-berkeley .headerlink {
+    display: none;
+}

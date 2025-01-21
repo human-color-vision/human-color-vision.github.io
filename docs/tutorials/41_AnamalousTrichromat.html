@@ -1,0 +1,337 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>1. Simulation of anomalous trichromat</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=97580af3" />
+
+  
+    <link rel="shortcut icon" href="../../_static/favicon.png"/>
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="2. Simulation of extreme cone positions" href="42_ExtremeConePosition.html" />
+    <link rel="prev" title="Custom Simulation" href="4_CustomSimulation.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            Human Color Vision
+              <img src="../../_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Tutorials</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="0_About.html">About this tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1_GettingStarted.html">Getting Started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="1_GettingStarted.html#download-the-codebase">1. Download the codebase</a></li>
+<li class="toctree-l2"><a class="reference internal" href="1_GettingStarted.html#install-the-required-packages">2. Install the required packages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="1_GettingStarted.html#using-local-pip">Using local pip</a></li>
+<li class="toctree-l3"><a class="reference internal" href="1_GettingStarted.html#using-virtualenv">Using virtualenv</a></li>
+<li class="toctree-l3"><a class="reference internal" href="1_GettingStarted.html#using-conda">Using Conda</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="1_GettingStarted.html#check-installation">3. Check installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="1_GettingStarted.html#optional-download-the-ntire-dataset">4. (Optional) Download the NTIRE dataset</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="2_RetinaSimulation.html">Retina Simulation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="2_RetinaSimulation.html#introduction">0. Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="2_RetinaSimulation.html#retina-model-overview">1. Retina model overview</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="2_RetinaSimulation.html#directory-structure">Directory Structure</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="2_RetinaSimulation.html#simulating-optic-nerve-signals-with-a-default-trichromatic-retina">2. Simulating optic nerve signals with a default trichromatic retina</a></li>
+<li class="toctree-l2"><a class="reference internal" href="2_RetinaSimulation.html#simulating-different-retina-models">3. Simulating different retina models</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="2_RetinaSimulation.html#change-the-parameters-in-the-yaml-file">3.1. Change the parameters in the yaml file</a></li>
+<li class="toctree-l3"><a class="reference internal" href="2_RetinaSimulation.html#directly-modify-the-yaml-object">3.2. Directly modify the yaml object</a></li>
+<li class="toctree-l3"><a class="reference internal" href="2_RetinaSimulation.html#directly-modify-the-instance-of-the-retina-model">3.3. Directly modify the instance of the retina model</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="2_RetinaSimulation.html#conclusion">4. Conclusion</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="3_CortexSimulation.html">Cortex Simulation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="3_CortexSimulation.html#introduction">0. Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="3_CortexSimulation.html#cortex-model-overview">1. Cortex model overview</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="3_CortexSimulation.html#directory-structure">Directory Structure</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="3_CortexSimulation.html#training-the-cortex-model">2. Training the cortex model</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="3_CortexSimulation.html#default-parameters-for-training-the-default-cortex-model">2.1. Default parameters for training the default cortex model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="3_CortexSimulation.html#training-a-sandbox-model">2.2. Training a sandbox model</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="3_CortexSimulation.html#visualizing-the-learned-internal-percepts">3. Visualizing the learned internal percepts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="3_CortexSimulation.html#conclusion">4. Conclusion</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="4_CustomSimulation.html">Custom Simulation</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">1. Simulation of anomalous trichromat</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#what-is-anomalous-trichromat">What is Anomalous Trichromat?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#identify-the-module-to-customize">1.1. Identify the Module to Customize</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#define-your-configuration">1.2. Define Your Configuration</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#default-yaml-configuration">Default YAML Configuration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#modified-yaml-configuration">Modified YAML Configuration</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#run-and-analyze">1.3. Run and analyze</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#further-analysis-optional">1.4. Further analysis (Optional)</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="42_ExtremeConePosition.html">2. Simulation of extreme cone positions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="42_ExtremeConePosition.html#identify-the-module-to-customize">2.1. Identify the module to customize</a></li>
+<li class="toctree-l3"><a class="reference internal" href="42_ExtremeConePosition.html#define-your-configuration">2.2. Define your configuration</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="42_ExtremeConePosition.html#default-yaml-configuration">Default YAML Configuration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="42_ExtremeConePosition.html#modified-yaml-configuration">Modified YAML Configuration</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="42_ExtremeConePosition.html#run-and-analyze">2.3. Run and analyze</a></li>
+<li class="toctree-l3"><a class="reference internal" href="42_ExtremeConePosition.html#further-analysis-optional">2.4. Further analysis (Optional)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="42_ExtremeConePosition.html#conclusion">2.5. Conclusion</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="43_ConeCellDeath.html">3. Simulation of cone cell death</a></li>
+<li class="toctree-l2"><a class="reference internal" href="44_ImperfectEyeMotionInference.html">4. Simulation of imperfect eye motion inference and its effect on color perception</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Supplementary</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../paper/index.html">Supplementary Video</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Human Color Vision</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="4_CustomSimulation.html">Custom Simulation</a></li>
+      <li class="breadcrumb-item active">1. Simulation of anomalous trichromat</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section class="tex2jax_ignore mathjax_ignore" id="simulation-of-anomalous-trichromat">
+<span id="id1"></span><h1>1. Simulation of anomalous trichromat<a class="headerlink" href="#simulation-of-anomalous-trichromat" title="Link to this heading"></a></h1>
+<section id="what-is-anomalous-trichromat">
+<h2>What is Anomalous Trichromat?<a class="headerlink" href="#what-is-anomalous-trichromat" title="Link to this heading"></a></h2>
+<p>Anomalous trichromatism is a form of color vision deficiency where individuals possess three types of cone photoreceptors (L, M, and S cones), but the peak spectral sensitivities of one or more cone types are shifted from the typical values.</p>
+<p>For instance, an individual with anomalous trichromacy may have an M cone with a peak sensitivity shifted towards longer wavelengths. Below is a comparison of cone fundamentals between a normal trichromat and an anomalous trichromat:</p>
+<p><img alt="Cone Fundamentals Comparison" src="../../_images/cone_fundamentals_comparison.png" /></p>
+<p>In this section, we demonstrate how to simulate the anomalous trichromat retina and compare its behavior to a normal trichromat retina.</p>
+</section>
+<hr class="docutils" />
+<section id="identify-the-module-to-customize">
+<h2>1.1. Identify the Module to Customize<a class="headerlink" href="#identify-the-module-to-customize" title="Link to this heading"></a></h2>
+<p>To simulate anomalous trichromacy, we need to modify the cone fundamentals—specifically, the sensitivity curves of the cones. This involves customizing the <code class="docutils literal notranslate"><span class="pre">SpectralSampling</span></code> module within the <code class="docutils literal notranslate"><span class="pre">RetinaModel</span></code> (located at: <a class="reference external" href="https://github.com/atsu-kotani/HumanColorVision/tree/main/Simulated/Retina/SS_spectral_sampling"><code class="docutils literal notranslate"><span class="pre">Simulated/Retina/SS_spectral_sampling</span></code></a>)</p>
+<p>Within this folder:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">SS_Abstract.py</span></code> defines the abstract base class <code class="docutils literal notranslate"><span class="pre">AbstractSpectralSampling</span></code>, which governs spectral sampling.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">SS_Default.py</span></code> defines the default implementation, <code class="docutils literal notranslate"><span class="pre">DefaultSpectralSampling</span></code>.</p></li>
+</ul>
+<p>To create a custom implementation, we need to define a new class inheriting from <code class="docutils literal notranslate"><span class="pre">AbstractSpectralSampling</span></code>. For demonstration, we’ve already provided an example class, <code class="docutils literal notranslate"><span class="pre">CustomSpectralSampling</span></code>, in the file <a class="reference external" href="https://github.com/atsu-kotani/HumanColorVision/blob/main/Simulated/Retina/SS_spectral_sampling/SS_Custom.py"><code class="docutils literal notranslate"><span class="pre">SS_Custom.py</span></code></a>. Here’s a snippet to illustrate the structure:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="o">...</span><span class="n">imports</span><span class="o">...</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">Simulated.Retina.SS_spectral_sampling</span><span class="w"> </span><span class="kn">import</span> <span class="n">register_class</span>
+
+<span class="nd">@register_class</span><span class="p">(</span><span class="s2">&quot;Custom_Cone_Fundamentals&quot;</span><span class="p">)</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">CustomSpectralSampling</span><span class="p">(</span><span class="n">AbstractSpectralSampling</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">CustomSpectralSampling</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">params</span><span class="p">)</span>
+        
+        <span class="o">...</span><span class="n">rest</span> <span class="n">of</span> <span class="n">the</span> <span class="n">code</span><span class="o">...</span>
+</pre></div>
+</div>
+<p>Key Points:</p>
+<ol class="arabic simple">
+<li><p>The <code class="docutils literal notranslate"><span class="pre">register_class</span></code> function is defined in the <code class="docutils literal notranslate"><span class="pre">__init__.py</span></code> file of each module directory and is used to register the new class.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">&#64;register_class(&quot;Custom_Cone_Fundamentals&quot;)</span></code> decorator allows the new class to be referenced in the YAML configuration file.</p></li>
+</ol>
+<p>Basically, by adding this simple decorator, you can easily direct the model to use your custom spectral sampling class from the YAML configuration file.
+This format is general across the codebase, not just for this <code class="docutils literal notranslate"><span class="pre">SS_spectral_sampling</span></code> module but also for other modules, including the ones in the <code class="docutils literal notranslate"><span class="pre">CortexModel</span></code>. We will come back to this point in just a moment.</p>
+</section>
+<hr class="docutils" />
+<section id="define-your-configuration">
+<h2>1.2. Define Your Configuration<a class="headerlink" href="#define-your-configuration" title="Link to this heading"></a></h2>
+<p>Now let’s pause before implementing the full code of the <code class="docutils literal notranslate"><span class="pre">CustomSpectralSampling</span></code> class, and start working on the YAML configuration file.</p>
+<p>As we identified, we would most likely end up modifying the <code class="docutils literal notranslate"><span class="pre">SpectralSampling</span></code> module in the <code class="docutils literal notranslate"><span class="pre">RetinaModel</span></code>. To control this from the YAML configuration file, here is one possible change you can make to the default YAML configuration file.</p>
+<section id="default-yaml-configuration">
+<h3>Default YAML Configuration<a class="headerlink" href="#default-yaml-configuration" title="Link to this heading"></a></h3>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># (Before Change) Default Retinal model parameters</span>
+<span class="nt">RetinaModel</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">retina_spectral_sampling</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;Default&#39;</span><span class="w"> </span><span class="c1"># Spectral sampling strategy for the retina</span>
+<span class="w">    </span><span class="nt">cone_types</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;LMS&#39;</span><span class="w"> </span><span class="c1"># Cone types in the retina mosaic</span>
+</pre></div>
+</div>
+</section>
+<section id="modified-yaml-configuration">
+<h3>Modified YAML Configuration<a class="headerlink" href="#modified-yaml-configuration" title="Link to this heading"></a></h3>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># (After Change) Custom Retinal model parameters</span>
+<span class="nt">RetinaModel</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">retina_spectral_sampling</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;Custom_Cone_Fundamentals&#39;</span><span class="w"> </span><span class="c1"># Spectral sampling strategy for the retina</span>
+<span class="w">    </span><span class="nt">cone_types</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;LMS&#39;</span><span class="w"> </span><span class="c1"># Cone types in the retina mosaic</span>
+<span class="w">    </span><span class="nt">cone_fundamentals</span><span class="p">:</span><span class="w"> </span>
+<span class="w">      </span><span class="nt">L</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">560</span><span class="w">    </span><span class="c1"># Default L cone peaks at 560 nm</span>
+<span class="w">      </span><span class="nt">M</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">550</span><span class="w">    </span><span class="c1"># Shifting M cone peak to 550 nm from the default 530 nm</span>
+<span class="w">      </span><span class="nt">S</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">419</span><span class="w">    </span><span class="c1"># Default S cone peaks at 419 nm</span>
+</pre></div>
+</div>
+<p>The full example of the YAML configuration file can be found in the <a class="reference external" href="https://github.com/atsu-kotani/HumanColorVision/blob/main/Tutorials/03_CustomSimulation/Config/AnomalousTrichromat.yaml"><code class="docutils literal notranslate"><span class="pre">AnomalousTrichromat.yaml</span></code></a>.</p>
+<p>But the important comment here is that:</p>
+<ol class="arabic simple">
+<li><p>The <code class="docutils literal notranslate"><span class="pre">type</span></code> field is now set to <code class="docutils literal notranslate"><span class="pre">Custom_Cone_Fundamentals</span></code> instead of <code class="docutils literal notranslate"><span class="pre">Default</span></code>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">cone_fundamentals</span></code> field is now created to specify the peaks of the cone fundamentals.</p></li>
+</ol>
+<p>Now, let’s revisit the <code class="docutils literal notranslate"><span class="pre">CustomSpectralSampling</span></code> class in the <a class="reference external" href="https://github.com/atsu-kotani/HumanColorVision/blob/main/Simulated/Retina/SS_spectral_sampling/SS_Custom.py"><code class="docutils literal notranslate"><span class="pre">SS_Custom.py</span></code></a> file.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="o">...</span>
+<span class="o">...</span><span class="n">imports</span><span class="o">...</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">Simulated.Retina.SS_spectral_sampling</span><span class="w"> </span><span class="kn">import</span> <span class="n">register_class</span>
+
+<span class="nd">@register_class</span><span class="p">(</span><span class="s2">&quot;Custom_Cone_Fundamentals&quot;</span><span class="p">)</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">CustomSpectralSampling</span><span class="p">(</span><span class="n">AbstractSpectralSampling</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">CustomSpectralSampling</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">params</span><span class="p">)</span>
+
+        <span class="c1"># Defining custom cone fundamentals, using the parameters from the new YAML configuration file.</span>
+        <span class="n">cone_fundamentals_params</span> <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="s1">&#39;RetinaModel&#39;</span><span class="p">][</span><span class="s1">&#39;retina_spectral_sampling&#39;</span><span class="p">][</span><span class="s1">&#39;cone_fundamentals&#39;</span><span class="p">]</span>
+        <span class="n">cone_fundamental_peaks</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">cone_fundamentals_params</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+        <span class="n">cone_fundamentals</span> <span class="o">=</span> <span class="n">generate_cone_fundamentals_from_peak_frequencies</span><span class="p">(</span><span class="n">cone_fundamental_peaks</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cone_fundamentals</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">FloatTensor</span><span class="p">(</span><span class="n">cone_fundamentals</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">DEVICE</span><span class="p">)</span>
+
+        <span class="o">...</span><span class="n">rest</span> <span class="n">of</span> <span class="n">the</span> <span class="n">code</span><span class="o">...</span>
+</pre></div>
+</div>
+<p>The decorator class name <code class="docutils literal notranslate"><span class="pre">Custom_Cone_Fundamentals</span></code> is indeed used in the <code class="docutils literal notranslate"><span class="pre">type</span></code> field in the YAML configuration file, and that is how the model knows which class to use for this spectral sampling module in the <code class="docutils literal notranslate"><span class="pre">RetinaModel</span></code>, and <code class="docutils literal notranslate"><span class="pre">cone_fundamentals</span></code> field is used to specify the peak frequencies of the cone fundamentals, and then passed to define the cone_fundamentals attribute in the <code class="docutils literal notranslate"><span class="pre">CustomSpectralSampling</span></code> class.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="run-and-analyze">
+<h2>1.3. Run and analyze<a class="headerlink" href="#run-and-analyze" title="Link to this heading"></a></h2>
+<p>Now, let’s instantiate two retina models, one with the default cone fundamentals and one with the custom cone fundamentals.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Instantiating two retina models</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">Simulated.Retina.RetinaModel</span><span class="w"> </span><span class="kn">import</span> <span class="n">RetinaModel</span>
+
+<span class="c1"># Load the default parameters for the trichromatic retina simulation</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">ROOT_DIR</span><span class="si">}</span><span class="s1">/Experiment/Config/Default/LMS.yaml&#39;</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">default_params</span> <span class="o">=</span> <span class="n">yaml</span><span class="o">.</span><span class="n">safe_load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+<span class="n">retina_model_default</span> <span class="o">=</span> <span class="n">RetinaModel</span><span class="p">(</span><span class="n">default_params</span><span class="p">)</span>
+
+<span class="c1"># Load the parameters for the anomalous trichromatic retina simulation</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">ROOT_DIR</span><span class="si">}</span><span class="s1">/Tutorials/03_CustomSimulation/Config/AnomalousTrichromat.yaml&#39;</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">anomalous_trichromat_params</span> <span class="o">=</span> <span class="n">yaml</span><span class="o">.</span><span class="n">safe_load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+<span class="n">retina_model_anomalous</span> <span class="o">=</span> <span class="n">RetinaModel</span><span class="p">(</span><span class="n">anomalous_trichromat_params</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>If we compare the retinal responses of the two models, we can clearly see the difference in their responses.</p>
+<p><img alt="Retinal Responses Comparison" src="../../_images/anomalous_trichromat_comparison.png" /></p>
+<p>For the anomalous trichromat retina, the difference between L and M cones is more nuanced than the default trichromat retina, which makes total sense given aggressive overlap of M cone sensitivity curve with L cone sensitivity curve.</p>
+</section>
+<hr class="docutils" />
+<section id="further-analysis-optional">
+<h2>1.4. Further analysis (Optional)<a class="headerlink" href="#further-analysis-optional" title="Link to this heading"></a></h2>
+<p>This is an optional section, but we would like to show you how to further analyze the results of the simulation.</p>
+<p>Given two retina models, as well as the trained cortex model with one of the retina models, we can simulate the perception of the stimulus with the other retina model. <em><strong>Intuitively, we can simulate what the normal trichromat person would see if they suddenly became anomalous trichromat.</strong></em></p>
+<p>Let’s load the trained cortex model and generate two internal percepts, generated from two optic nerve signals simulated by two different retina models.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Load the default cortex model</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">Simulated.Cortex.CortexModel</span><span class="w"> </span><span class="kn">import</span> <span class="n">CortexModel</span>
+<span class="n">cortex_model_default</span> <span class="o">=</span> <span class="n">CortexModel</span><span class="p">(</span><span class="n">default_params</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">DEVICE</span><span class="p">)</span>
+<span class="n">cortex_model_default</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">cortex_model_default</span><span class="p">)</span>
+
+<span class="c1"># load the pre-trained weights</span>
+<span class="n">cortex_model_default</span><span class="o">.</span><span class="n">load_state_dict</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">ROOT_DIR</span><span class="si">}</span><span class="s1">/Experiment/LearnedWeights/LMS/100000.pt&#39;</span><span class="p">,</span> <span class="n">weights_only</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">map_location</span><span class="o">=</span><span class="n">DEVICE</span><span class="p">))</span>
+
+<span class="c1"># get the internal percepts for the ons simulated by the default trichromat retina</span>
+<span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>
+    <span class="n">default_warped_internal_percept</span> <span class="o">=</span> <span class="n">cortex_model_default</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="n">optic_nerve_signals_default</span><span class="p">[:,:</span><span class="mi">1</span><span class="p">])</span>
+    <span class="n">default_warped_internal_percept_linsRGB</span> <span class="o">=</span> <span class="n">cortex_model_default</span><span class="o">.</span><span class="n">ns_ip</span><span class="o">.</span><span class="n">forward</span><span class="p">(</span><span class="n">default_warped_internal_percept</span><span class="p">)</span>
+    <span class="n">default_warped_internal_percept_sRGB</span> <span class="o">=</span> <span class="n">retina_model_default</span><span class="o">.</span><span class="n">CST</span><span class="o">.</span><span class="n">linsRGB_to_sRGB</span><span class="p">(</span><span class="n">default_warped_internal_percept_linsRGB</span><span class="p">)</span>
+    <span class="n">default_internal_percept_sRGB</span> <span class="o">=</span> <span class="n">get_unwarped_percept</span><span class="p">(</span><span class="n">default_warped_internal_percept_sRGB</span><span class="p">,</span> <span class="n">cortex_model_default</span><span class="p">)</span>
+
+<span class="c1"># get the internal percepts for the ons simulated by the anomalous trichromat retina</span>
+<span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>
+    <span class="n">anomalous_warped_internal_percept</span> <span class="o">=</span> <span class="n">cortex_model_default</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="n">optic_nerve_signals_anomalous</span><span class="p">[:,:</span><span class="mi">1</span><span class="p">])</span>
+    <span class="n">anomalous_warped_internal_percept_linsRGB</span> <span class="o">=</span> <span class="n">cortex_model_default</span><span class="o">.</span><span class="n">ns_ip</span><span class="o">.</span><span class="n">forward</span><span class="p">(</span><span class="n">anomalous_warped_internal_percept</span><span class="p">)</span>
+    <span class="n">anomalous_warped_internal_percept_sRGB</span> <span class="o">=</span> <span class="n">retina_model_default</span><span class="o">.</span><span class="n">CST</span><span class="o">.</span><span class="n">linsRGB_to_sRGB</span><span class="p">(</span><span class="n">anomalous_warped_internal_percept_linsRGB</span><span class="p">)</span>
+    <span class="n">anomalous_internal_percept_sRGB</span> <span class="o">=</span> <span class="n">get_unwarped_percept</span><span class="p">(</span><span class="n">anomalous_warped_internal_percept_sRGB</span><span class="p">,</span> <span class="n">cortex_model_default</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>And here is the comparison of the two internal percepts.</p>
+<p><img alt="Internal Percepts Comparison" src="../../_images/simulating_anomalous_view_from_default_model.png" /></p>
+<p>We would not put too much emphasis on the difference between the two internal percepts, as there are many factors that could affect the difference, but this is a good example to show how we can actually simulate the perception of a new coming stimulus.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="4_CustomSimulation.html" class="btn btn-neutral float-left" title="Custom Simulation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="42_ExtremeConePosition.html" class="btn btn-neutral float-right" title="2. Simulation of extreme cone positions" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Atsunobu Kotani.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

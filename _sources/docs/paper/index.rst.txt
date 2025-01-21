@@ -1,0 +1,8 @@
+Supplementary Video
+===================
+
+This page contains the supplementary video for the paper **"A Computational Framework for Modeling the Emergence of Color Vision in the Human Brain"**.
+
+.. raw:: html
+
+   <video src="../../_static/supplementary_video.mp4" controls style="width: 100%; padding-bottom: 20px;"></video>

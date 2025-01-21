@@ -1,0 +1,44 @@
+
+Custom Simulation
+=================
+
+Congratulations! 
+After following the previous tutorials, you've mastered the basics of simulating the retina and cortex. 
+Now it's time to elevate your skills and tackle something even more exciting: **designing your own simulations**.
+
+Our codebase is crafted with flexibility and modularity in mind, empowering you to customize simulations to suit your unique research needs and creative ideas.
+
+In this tutorial, we'll showcase how to create custom simulations, guiding you through the process step by step. You'll explore the following fascinating examples:
+
+.. toctree::
+   :maxdepth: 1
+   :titlesonly:
+   :caption: Custom Simulations
+   
+   41_AnamalousTrichromat
+   42_ExtremeConePosition
+   43_ConeCellDeath
+   44_ImperfectEyeMotionInference
+
+
+This list is just the beginning. The possibilities are endless, and we encourage you to dive into the codebase and push the boundaries of what's possible.
+
+Before we delve into specific examples, let's outline the **core steps** for creating your own simulation.
+
+
+.. raw:: html
+
+   <h2>The Core Steps to Designing Your Simulation</h2>
+
+1. **Identify the Module to Customize**  
+   Decide which part of the simulation you want to modify and create a new file in the corresponding directory.  
+
+2. **Define Your Configuration**  
+   Create a new YAML configuration file in the `Experiment/Config` directory. Update the `type` field to reflect your custom module.
+
+3. **Run and Analyze**  
+   Execute your simulation and analyze the results. Dive into the data to uncover new insights.
+
+---
+
+In the sections ahead, we'll delve deeper into each of these steps and bring them to life with real-world examples. Let's begin this thrilling journey into the world of custom simulations!
