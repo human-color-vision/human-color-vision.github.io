@@ -64,9 +64,11 @@ If you see any errors, please check the installation instructions again.
 
 ## 4. (Optional) Download the NTIRE dataset
 
-If you wish to reproduce the results in the paper or train your own model using the hyperspectral image dataset, you will need to download the [NTIRE 2022 dataset](https://data.vision.ee.ethz.ch/cvl/ntire22/).
+If you wish to reproduce the results in the paper or train your own model using the hyperspectral image dataset, 
+you will need to download the [NTIRE 2022 dataset](https://data.vision.ee.ethz.ch/cvl/ntire22/).
+You can download the dataset by signing up for the [NTIRE 2022 Challenge on Spectral Reconstruction from RGB](https://codalab.lisn.upsaclay.fr/competitions/721).
 
-The downloaded hyperspectral image file (e.g. `ARAD_1K_0001.mat`) should be placed under `HumanColorVision/Dataset/NTIRE2022_original/data/`.
+The downloaded hyperspectral image file (e.g. `ARAD_1K_0001.mat`) should be placed under the folder `HumanColorVision/Dataset/NTIRE2022_original/data/`.
 
 
 <!-- # (Optional) 5. Download the weights of the pre-trained models

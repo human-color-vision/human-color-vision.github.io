@@ -21,7 +21,7 @@ A Computational Framework for Modeling the Emergence of Color Vision in the Huma
             <a href="https://openreview.net/forum?id=g3xuCtrG6H" target="_blank" style="margin-right: 10px;">
                 <img src="https://img.shields.io/badge/OpenReview-Discussion-green?style=flat" alt="OpenReview" height="30">
             </a>
-            <a href="https://github.com/atsu-kotani/HumanColorVision/blob/main/docs/tutorials/index.rst" target="_blank" style="margin-right: 10px;">
+            <a href="https://human-color-vision.github.io/docs/tutorials/0_About.html" target="_blank" style="margin-right: 10px;">
                 <img src="https://img.shields.io/badge/Tutorial-Page-orange?style=flat" alt="Tutorial" height="30">
             </a>
         </div>
@@ -68,5 +68,5 @@ To reproduce the results presented in this work, please refer to the :ref:`Tutor
    :maxdepth: 1
    :caption: Supplementary
    :hidden:
-   
+
    docs/paper/index
