@@ -57,11 +57,11 @@ To reproduce the results presented in this work, please refer to the :ref:`Tutor
    :caption: Tutorials
    :hidden:
 
-   docs/tutorials/0_About
-   docs/tutorials/1_GettingStarted
-   docs/tutorials/2_RetinaSimulation.md
-   docs/tutorials/3_CortexSimulation.md
-   docs/tutorials/4_CustomSimulation
+   tutorials/0_About
+   tutorials/1_GettingStarted
+   tutorials/2_RetinaSimulation.md
+   tutorials/3_CortexSimulation.md
+   tutorials/4_CustomSimulation
 
 
 .. toctree::
@@ -69,4 +69,4 @@ To reproduce the results presented in this work, please refer to the :ref:`Tutor
    :caption: Supplementary
    :hidden:
 
-   docs/paper/index
+   paper/index

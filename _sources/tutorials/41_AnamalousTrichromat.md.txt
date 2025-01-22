@@ -6,7 +6,7 @@ Anomalous trichromatism is a form of color vision deficiency where individuals p
 
 For instance, an individual with anomalous trichromacy may have an M cone with a peak sensitivity shifted towards longer wavelengths. Below is a comparison of cone fundamentals between a normal trichromat and an anomalous trichromat:
 
-![Cone Fundamentals Comparison](../../_static/cone_fundamentals_comparison.png)
+![Cone Fundamentals Comparison](../_static/cone_fundamentals_comparison.png)
 
 In this section, we demonstrate how to simulate the anomalous trichromat retina and compare its behavior to a normal trichromat retina.
 
@@ -124,7 +124,7 @@ retina_model_anomalous = RetinaModel(anomalous_trichromat_params)
 
 If we compare the retinal responses of the two models, we can clearly see the difference in their responses.
 
-![Retinal Responses Comparison](../../_static/anomalous_trichromat_comparison.png)
+![Retinal Responses Comparison](../_static/anomalous_trichromat_comparison.png)
 
 For the anomalous trichromat retina, the difference between L and M cones is more nuanced than the default trichromat retina, which makes total sense given aggressive overlap of M cone sensitivity curve with L cone sensitivity curve.
 
@@ -164,7 +164,7 @@ with torch.no_grad():
 
 And here is the comparison of the two internal percepts.
 
-![Internal Percepts Comparison](../../_static/simulating_anomalous_view_from_default_model.png)
+![Internal Percepts Comparison](../_static/simulating_anomalous_view_from_default_model.png)
 
 We would not put too much emphasis on the difference between the two internal percepts, as there are many factors that could affect the difference, but this is a good example to show how we can actually simulate the perception of a new coming stimulus.
 

@@ -5,4 +5,4 @@ This page contains the supplementary video for the paper **"A Computational Fram
 
 .. raw:: html
 
-   <video src="../../_static/supplementary_video.mp4" controls style="width: 100%; padding-bottom: 20px;"></video>
+   <video src="../_static/supplementary_video.mp4" controls style="width: 100%; padding-bottom: 20px;"></video>

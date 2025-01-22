@@ -244,7 +244,7 @@ If we vary the `num_gradient_updates` value, we can visualize the learned intern
 
 <div style="display: flex; flex-wrap: wrap; justify-content: space-between;" align="center">
     <div style="flex: 1 1 33%; margin: 0px;">
-        <img src="../../_static/learned_percept.gif" alt="Current FoV (sRGB)" style="width: 50%;">
+        <img src="../_static/learned_percept.gif" alt="Current FoV (sRGB)" style="width: 50%;">
     </div>
 </div>
 

@@ -102,11 +102,11 @@ retina_model_two_foveas = RetinaModel(two_foveas_params)
 
 If we were to visualize the cone positions, we can see the following results:
 
-![Comparison of cone positions](../../_static/cone_positions_comparison.png)
+![Comparison of cone positions](../_static/cone_positions_comparison.png)
 
 And if we were to compare the retinal responses of the three models, we can see the following results:
 
-![Comparison of retinal responses](../../_static/horizontal_streak_vs_two_foveas.png)
+![Comparison of retinal responses](../_static/horizontal_streak_vs_two_foveas.png)
 
 ---
 
