@@ -18,8 +18,6 @@
       <script src="../../_static/documentation_options.js?v=5929fcd5"></script>
       <script src="../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
-      <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -152,7 +150,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section class="tex2jax_ignore mathjax_ignore" id="simulation-of-extreme-cone-positions">
+  <section id="simulation-of-extreme-cone-positions">
 <span id="id1"></span><h1>2. Simulation of extreme cone positions<a class="headerlink" href="#simulation-of-extreme-cone-positions" title="Link to this heading"></a></h1>
 <p>The cone positions in our default retina model has a single fovea, which creates a foveation effect in the simulated retinal responses.
 But it is known that other animals have totally different distribution of cone positions, such as two foveas in hawks or horizontal streak foveas in lizards or kangaroos.</p>
@@ -213,10 +211,10 @@ We have pre-computed different distribution of the cone positions in the <code c
 <p>Obviously, this is not the only way to modify the cone positions, and you can implement your own function to define the cone positions.</p>
 <p>For example, instead of giving the cone positions explicitly as a 2D grid, you can define the cone positions by an inplicit function.
 If we were to simulate two foveas, one example of the function is:
-$<span class="math notranslate nohighlight">\(
+$$
 f(x, y) = 1 - \left[ \exp\left(-\alpha \left((x + 0.5)^2 + y^2\right)\right) + \exp\left(-\alpha \left((x - 0.5)^2 + y^2\right)\right) \right]
-\)</span><span class="math notranslate nohighlight">\(
-where \)</span>\alpha$ is a parameter that controls the sharpness of the distribution.
+$$
+where $\alpha$ is a parameter that controls the sharpness of the distribution.
 You can choose to make your own custom class that takes this density function and generate the cone positions accordingly. But this is beyond the scope of this tutorial, so we will leave it as an exercise for the reader.</p>
 </section>
 </section>
